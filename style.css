@@ -1,0 +1,85 @@
+body{
+    width: 100vw; /* 1vw = 1% largeur, 1vh = 1% hauteur */
+    height: 100vh;
+    margin: 0px;
+}
+
+#game_viewport {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ZONE COMBAT */
+
+#combat_area {
+    background: #222;
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#ennemies_container {
+    display: flex;
+    flex-direction: row;
+}
+
+.ennemy_container {
+    margin: 0vw 4vw;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+}
+
+.ennemy_img {
+    width: 14vw;
+    margin-bottom: 1vw;
+}
+
+#characters_container {
+    display: flex;
+    flex-direction: row;
+}
+
+.character_container {
+    margin: 4vw 4vw 0vw 4vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.character_img {
+    width: 10vw;
+    margin-top: 1vw;
+}
+
+.cursor {
+    width: 4vw;
+}
+
+/* ZONE COMMANDES ET INFOS */
+
+#command_area {
+    background: #444;
+    margin: 1vw;
+    height: 25vh;
+    border-radius: 2vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#character_frame {
+    background: #222;
+    height: 20vh;
+    width: 20vh;
+    border-radius: 1vw;
+    margin-left: 2vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
