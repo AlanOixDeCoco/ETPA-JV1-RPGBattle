@@ -18,13 +18,14 @@ const MIN_ENNEMIES_DAMAGE = 10; // minimum damage to deal to the characters
 //#endregion
 
 //#region characters & ennemies arrays
+// characters are defined as arrays of values, themselves inside another array
 var characters = [
     ["character_1", "Giro Smileur", MAX_CHARACTERS_HEALTH, 10, MAX_CHARACTERS_MANA, heal], // html ID, NAME, HP (health pts), DMG (damage pts), MANA, SPE (special ability function)
     ["character_2", "Turbo Incognito", MAX_CHARACTERS_HEALTH, 10, MAX_CHARACTERS_MANA, heal], 
     ["character_3", "Ultra Cowboy", MAX_CHARACTERS_HEALTH, 10, MAX_CHARACTERS_MANA, heal], 
     ["character_4", "Giga Chad", MAX_CHARACTERS_HEALTH, 10, MAX_CHARACTERS_MANA, heal]
 ];
-
+// ennemies are defined as the characters are
 var ennemies = [
     ["ennemy_1", "Clown", MAX_ENNEMIES_HEALTH, 15], // html ID, NAME, HP (health pts), DMG (damage pts),
     ["ennemy_2", "Ogre", MAX_ENNEMIES_HEALTH, 15], 
@@ -51,3 +52,33 @@ function reduceDamage(target, amount){
     return `Dégats de ${target[NAME]} réduits de ${amount} !\n${target[NAME]} inflige désormais ${target[DMG]} pts de dégat.`
 }
 //#endregion
+
+//#region Visual refreshing functions
+// refreshes stats to the desired character
+function RefreshStatsArea(character){
+    if(character[HP] > 0){
+        document.getElementById("health_bar").style.width = `${(character[HP]/MAX_CHARACTERS_HEALTH) * 100}%`; // changes the filling of the health bar
+    }
+    else {
+        document.getElementById("health_bar").style.background = "none";
+        document.getElementById("health_bar").style.boxShadow = "none";
+    }
+    document.getElementById("health_bar").innerHTML = `${character[HP]}/${MAX_CHARACTERS_HEALTH}` // changes the health bar text
+    
+    if(character[MANA] > 0){
+        document.getElementById("mana_bar").style.width = `${(character[MANA]/MAX_CHARACTERS_MANA) * 100}%`; // changes the filling of the mana bar
+    }
+    else {
+        document.getElementById("mana_bar").style.background = "none";
+        document.getElementById("mana_bar").style.boxShadow = "none";
+    }
+    document.getElementById("mana_bar").innerHTML = `${character[MANA]}/${MAX_CHARACTERS_MANA}` // changes the mana bar text
+}
+//#endregion
+
+// just some testing code
+RefreshStatsArea(characters[0]);
+
+document.getElementById(characters[2][0]).getElementsByClassName("cursor")[0].style.visibility = "visible"; // pour afficher un curseur
+
+document.getElementById("character_frame").getElementsByTagName('img')[0].src="Assets/" + characters[2][0] + ".png"; // pour placer un personnage dans le cadre
