@@ -16,14 +16,13 @@ body{
 }
 
 /* ZONE COMBAT */
-
 #combat_area {
     /*background: #F00;*/
-    height: 80vh;
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 #ennemies_container {
@@ -32,10 +31,10 @@ body{
 }
 
 .ennemy_container {
-    margin: 0vh 4vw;
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
+    margin: 0 4vh;
 }
 
 .ennemy_img {
@@ -49,15 +48,15 @@ body{
 }
 
 .character_container {
-    margin: 20vh 4vw 0vh 4vw;
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin: 0 4vh;
 }
 
 .character_img {
     width: 12vh;
-    margin-top: 1vw;
+    margin-top: 1vh;
 }
 
 .cursor {
@@ -65,53 +64,83 @@ body{
     visibility: hidden;
 }
 
+@media (max-aspect-ratio: 1/1) {
+    .ennemy_container {
+        margin: 0 2vw;
+    }
+    .ennemy_img {
+        width: 20vw;
+    }
+    .character_container {
+        margin: 0 2vw;
+    }
+    .character_img {
+        width: 16vw;
+    }
+    .cursor {
+        width: 8vw;
+    }
+}
+
+.ennemy_img:hover{
+    cursor:not-allowed;
+}
+.character_img:hover{
+    cursor: url(Assets/crossed_swords.png) 16 16, pointer;
+}
+
 /* ZONE COMMANDES ET INFOS */
 
 #command_area {
+    bottom: 0;
+    left: 0;
+    right: 0;
     background: #FFF;
     box-shadow: 0vh 0vh 2vh #00000088;
-    margin: 2vh 2vh;
+    margin: 2vh;
     padding: 2vh;
     border-radius: 3vh;
     display: flex;
     flex-direction: row;
-    align-items: center;
+    flex-wrap: wrap;
 }
 
 #character_frame {
     background: #FFF;
     box-shadow: inset 0vh 0vh 1vh #00000088;
-    height: 16vh;
-    width: 16vh;
+    height: 14vh;
+    max-width: 16vh;
     border-radius: 2vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2vh;
+    padding: 1vh;
+    margin-right: 2vh;
 }
 
 #character_frame img{
-    width: 100%;
+    height: 100%;
 }
 
 #stats_container {
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
-    margin-left: 2vh;
-    height: 100%;
+    height: 16vh;
     justify-content: space-between;
+    margin-right: 2vh;
 }
 
 #stats_container p {
-    font-size: 3vh;
+    font-size: 2.5vh;
     margin: 1vh 0;
     font-family: Rubik, Helvetica, sans-serif;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .filler {
-    width: 30vw;
-    height: 4vh;
+    width: 100%;
+    height: 3vh;
     border-radius: 2vh;
     box-shadow: inset 0vh 0vh 1vh #00000088;
 }
@@ -124,31 +153,58 @@ body{
 }
 
 .filler #mana_bar {
-    background: #66F;
+    background: #5b28c3;
     border-radius: 2vh;
     box-shadow: inset 0vh 0vh 1vh #00000088;
     height: 100%;
 }
 
 #commands_container {
-    background: green;
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
-    margin-left: 2vh;
-    width: calc(100% - 30vw - 20vh);
-    height: 100%;
+    height: 16vh;
     justify-content: space-between;
 }
 
+@media (max-aspect-ratio: 1/1) {
+    #commands_container {
+        margin-top: 2vh;
+        flex-basis: 100%;
+    }
+    #stats_container {
+        margin-right: 0;
+    }
+}
+
 .command_button {
-    background: red;
+    box-shadow: 0vh 0vh 1vh #00000088;
+    color: #FFF;
+    border-radius: 2vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 30%;
-    font-size: 4vh;
+    height: 25%;
+    font-size: 2.5vh;
     font-family:Rubik, Helvetica, sans-serif;
-    font-weight: 800;
+    font-weight: 600;
+    transition: 0.1s ease-out;
+}
+
+.command_button:hover {
+    box-shadow: 0vh 0vh 1vh #000000FF;
+    transition: 0.1s ease-in;
+    cursor: pointer;
+}
+
+#attack_button {
+    background: #b92a2a;
+}
+#defend_button {
+    background: #00bbc5;
+}
+#special_button {
+    background: #5b28c3;
 }
