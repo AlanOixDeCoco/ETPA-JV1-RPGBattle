@@ -84,5 +84,6 @@ function RefreshCharacter(character){
     else {
         document.getElementById(character[0]).getElementsByClassName("health_bar")[0].style.marginRight = `${100 - ((character[HP]/MAX_CHARACTERS_HEALTH) * 100)}%`;
     }
+    
 }
 //#endregion

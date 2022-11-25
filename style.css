@@ -13,6 +13,7 @@ body{
     background: url("Assets/wallpaper.jpg");
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
     color: #361d57;
     display: flex;
     justify-content: center;
@@ -45,12 +46,12 @@ body{
     flex-direction: column;
     align-items: center;
     margin: 0 4vh;
-    filter: drop-shadow(0 0 .5vh black)
 }
 
 .ennemy_img {
     width: 16vh;
     margin-bottom: 1vh;
+    filter: drop-shadow(0 0 .5vh black)
 }
 
 #characters_container {
@@ -63,17 +64,18 @@ body{
     flex-direction: column;
     align-items: center;
     margin: 0 4vh;
-    filter: drop-shadow(0 0 .5vh black)
 }
 
 .character_img {
     width: 12vh;
     margin-top: 1vh;
+    filter: drop-shadow(0 0 .5vh black)
 }
 
 .cursor {
     width: 6vh;
     visibility: hidden;
+    filter: drop-shadow(0 0 .5vh black)
 }
 
 @media (max-aspect-ratio: 1/1) {
@@ -175,7 +177,7 @@ body{
 
 .small_filler {
     background: #FFF;
-    width: 10vh;
+    width: 9vh;
     padding: 0;
     margin-top: .5vh;
 }
