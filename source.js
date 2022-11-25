@@ -20,7 +20,7 @@ const MIN_ENNEMIES_DAMAGE = 10; // minimum damage to deal to the characters
 //#region characters & ennemies arrays
 // characters are defined as arrays of values, themselves inside another array
 var characters = [
-    ["character_1", "Giro Smileur", MAX_CHARACTERS_HEALTH, 10, MAX_CHARACTERS_MANA, heal], // html ID, NAME, HP (health pts), DMG (damage pts), MANA, SPE (special ability function)
+    ["character_1", "Giro Smileur", 80, 10, MAX_CHARACTERS_MANA, heal], // html ID, NAME, HP (health pts), DMG (damage pts), MANA, SPE (special ability function)
     ["character_2", "Turbo Incognito", MAX_CHARACTERS_HEALTH, 10, MAX_CHARACTERS_MANA, heal], 
     ["character_3", "Ultra Cowboy", MAX_CHARACTERS_HEALTH, 10, MAX_CHARACTERS_MANA, heal], 
     ["character_4", "Giga Chad", MAX_CHARACTERS_HEALTH, 10, MAX_CHARACTERS_MANA, heal]
@@ -57,21 +57,32 @@ function reduceDamage(target, amount){
 // refreshes stats to the desired character
 function RefreshStatsArea(character){
     if(character[HP] > 0){
-        document.getElementById("health_bar").style.marginRight = `${100 - ((character[HP]/MAX_CHARACTERS_HEALTH) * 100)}%`; // changes the filling of the health bar
+        document.getElementById("stats_container").getElementsByClassName("health_bar")[0].style.marginRight = `${100 - ((character[HP]/MAX_CHARACTERS_HEALTH) * 100)}%`; // changes the filling of the health bar
     }
     else {
-        document.getElementById("health_bar").style.background = "none";
-        document.getElementById("health_bar").style.boxShadow = "none";
+        document.getElementById("stats_container").getElementsByClassName("health_bar")[0].style.background = "none";
+        document.getElementById("stats_container").getElementsByClassName("health_bar")[0].style.boxShadow = "none";
     }
-    document.getElementById("health_bar").innerHTML = `${character[HP]}/${MAX_CHARACTERS_HEALTH}` // changes the health bar text
+    document.getElementById("stats_container").getElementsByClassName("health_bar")[0].innerHTML = `${character[HP]}/${MAX_CHARACTERS_HEALTH}` // changes the health bar text
     
     if(character[MANA] > 0){
-        document.getElementById("mana_bar").style.marginRight = `${100 - ((character[MANA]/MAX_CHARACTERS_MANA) * 100)}%`; // changes the filling of the mana bar
+        document.getElementById("stats_container").getElementsByClassName("mana_bar")[0].style.marginRight = `${100 - ((character[MANA]/MAX_CHARACTERS_MANA) * 100)}%`; // changes the filling of the mana bar
     }
     else {
-        document.getElementById("mana_bar").style.background = "none";
-        document.getElementById("mana_bar").style.boxShadow = "none";
+        document.getElementById("stats_container").getElementsByClassName("mana_bar")[0].style.background = "none";
+        document.getElementById("stats_container").getElementsByClassName("mana_bar")[0].style.boxShadow = "none";
     }
-    document.getElementById("mana_bar").innerHTML = `${character[MANA]}/${MAX_CHARACTERS_MANA}` // changes the mana bar text
+    document.getElementById("stats_container").getElementsByClassName("mana_bar")[0].innerHTML = `${character[MANA]}/${MAX_CHARACTERS_MANA}` // changes the mana bar text
+}
+
+function RefreshCharacter(character){
+    // hide whole character container if dead
+    if(character[HP] <= 0){
+        document.getElementById(character[ID]).style.visibility = "hidden";
+    }
+    // else edit health bar value
+    else {
+        document.getElementById(character[0]).getElementsByClassName("health_bar")[0].style.marginRight = `${100 - ((character[HP]/MAX_CHARACTERS_HEALTH) * 100)}%`;
+    }
 }
 //#endregion
