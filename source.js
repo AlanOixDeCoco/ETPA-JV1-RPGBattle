@@ -75,10 +75,3 @@ function RefreshStatsArea(character){
     document.getElementById("mana_bar").innerHTML = `${character[MANA]}/${MAX_CHARACTERS_MANA}` // changes the mana bar text
 }
 //#endregion
-
-// just some testing code
-RefreshStatsArea(characters[0]);
-
-document.getElementById(characters[2][0]).getElementsByClassName("cursor")[0].style.visibility = "visible"; // pour afficher un curseur
-
-document.getElementById("character_frame").getElementsByTagName('img')[0].src="Assets/" + characters[2][0] + ".png"; // pour placer un personnage dans le cadre
