@@ -2,15 +2,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800;900&display=swap');
 
 html {
-    height: -webkit-fill-available;
+    height: 100%;
 }
 
 body{
     width: 100vw; /* 1vw = 1% largeur, 1vh = 1% hauteur */
-    height: 100vh;
-    min-height: -webkit-fill-available;
+    height: 100%;
     margin: 0px;
     background: #FFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #game_viewport {
