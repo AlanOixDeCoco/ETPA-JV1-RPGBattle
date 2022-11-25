@@ -11,6 +11,7 @@ body{
     height: 100%;
     margin: 0px;
     background: #FFF;
+    color: #361d57;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -113,7 +114,7 @@ body{
 }
 
 #character_frame {
-    background: #FFF;
+    background: #c187ed;
     box-shadow: inset 0vh 0vh 1vh #00000088;
     height: 14vh;
     max-width: 16vh;
@@ -149,35 +150,29 @@ body{
     width: 100%;
     height: 3vh;
     border-radius: 2vh;
-    box-shadow: inset 0vh 0vh 1vh #00000088;
+    box-shadow: inset 0vh 0vh .5vh #00000088;
+}
+
+.filler > div {
+    display: flex;
+    align-items: center;
+    color: #FFF;
+    text-shadow: 0vh 0vh .5vh #000000FF;
+    font-family: Rubik, Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 2vh;
+    padding-left: 1vh;
+    border-radius: 2vh;
+    box-shadow: inset 0vh 0vh .5vh #00000088;
+    height: 100%;
 }
 
 #health_bar{
-    display: flex;
-    align-items: center;
-    background: #66ff66;
-    color: #000000AA;
-    font-family: Rubik, Helvetica, sans-serif;
-    font-weight: 600;
-    font-size: 2vh;
-    padding-left: 1vh;
-    border-radius: 2vh;
-    box-shadow: inset 0vh 0vh 1vh #00000088;
-    height: 100%;
+    background: #e8377a;
 }
 
 #mana_bar {
-    display: flex;
-    align-items: center;
-    background: #5b28c3;
-    color: #000000AA;
-    font-family: Rubik, Helvetica, sans-serif;
-    font-weight: 600;
-    font-size: 2vh;
-    padding-left: 1vh;
-    border-radius: 2vh;
-    box-shadow: inset 0vh 0vh 1vh #00000088;
-    height: 100%;
+    background: #f4ae2c;
 }
 
 #commands_container {
@@ -199,7 +194,7 @@ body{
 }
 
 .command_button {
-    box-shadow: 0vh 0vh 1vh #00000088;
+    box-shadow: none;
     color: #FFF;
     border-radius: 2vh;
     display: flex;
@@ -211,26 +206,26 @@ body{
     font-size: 2.5vh;
     font-family:Rubik, Helvetica, sans-serif;
     font-weight: 600;
-    transition: 0.1s ease-out;
+    transition: 0.15s ease-in-out;
 }
 
 .command_button:hover {
-    box-shadow: 0vh 0vh 1vh #000000FF;
-    transition: 0.1s ease-in;
+    box-shadow: 0vh 0vh .5vh #000000DD;
+    transition: 0.15s ease-in-out;
     cursor: pointer;
 }
 
 .command_button:active {
-    box-shadow: inset 0vh 0vh 1vh #00000088;
-    transition: 0.1s ease-in;
+    box-shadow: inset 0vh 0vh .5vh #00000088;
+    transition: 0.1s ease-in-out;
 }
 
 #attack_button {
-    background: #b92a2a;
+    background: #e8377a;
 }
 #defend_button {
-    background: #00bbc5;
+    background: #459ddd;
 }
 #special_button {
-    background: #5b28c3;
+    background: #f4ae2c;
 }
