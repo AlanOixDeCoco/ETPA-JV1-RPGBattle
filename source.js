@@ -51,11 +51,3 @@ function reduceDamage(target, amount){
     return `Dégats de ${target[NAME]} réduits de ${amount} !\n${target[NAME]} inflige désormais ${target[DMG]} pts de dégat.`
 }
 //#endregion
-
-
-// just some testing code
-document.getElementById("mana_bar").style.width = "20%"; // changer le remplissage de la barre
-
-document.getElementById(characters[3][0]).getElementsByClassName("cursor")[0].style.visibility = "visible"; // pour afficher un curseur
-
-document.getElementById("character_frame").getElementsByTagName('img')[0].src="Assets/" + characters[3][0] + ".png"; // pour placer un personnage dans le cadre
