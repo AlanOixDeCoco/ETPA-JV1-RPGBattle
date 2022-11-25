@@ -185,9 +185,14 @@ body{
 .small_filler > div {
     padding: 0;
     font-weight: 600;
-    font-size: 2vh;
     height: 1vh;
     box-shadow: none;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    .small_filler {
+        width: 12vw;
+    }
 }
 
 .health_bar{
