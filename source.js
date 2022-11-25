@@ -57,7 +57,7 @@ function reduceDamage(target, amount){
 // refreshes stats to the desired character
 function RefreshStatsArea(character){
     if(character[HP] > 0){
-        document.getElementById("health_bar").style.width = `${(character[HP]/MAX_CHARACTERS_HEALTH) * 100}%`; // changes the filling of the health bar
+        document.getElementById("health_bar").style.marginRight = `${100 - ((character[HP]/MAX_CHARACTERS_HEALTH) * 100)}%`; // changes the filling of the health bar
     }
     else {
         document.getElementById("health_bar").style.background = "none";
@@ -66,7 +66,7 @@ function RefreshStatsArea(character){
     document.getElementById("health_bar").innerHTML = `${character[HP]}/${MAX_CHARACTERS_HEALTH}` // changes the health bar text
     
     if(character[MANA] > 0){
-        document.getElementById("mana_bar").style.width = `${(character[MANA]/MAX_CHARACTERS_MANA) * 100}%`; // changes the filling of the mana bar
+        document.getElementById("mana_bar").style.marginRight = `${100 - ((character[MANA]/MAX_CHARACTERS_MANA) * 100)}%`; // changes the filling of the mana bar
     }
     else {
         document.getElementById("mana_bar").style.background = "none";

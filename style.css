@@ -147,10 +147,11 @@ body{
 }
 
 .filler {
-    width: 100%;
+    flex: 1;
     height: 3vh;
     border-radius: 2vh;
     box-shadow: inset 0vh 0vh .5vh #00000088;
+    overflow: hidden;
 }
 
 .filler > div {
