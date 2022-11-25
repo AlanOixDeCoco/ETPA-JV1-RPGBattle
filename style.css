@@ -1,9 +1,13 @@
 /* POLICES PERSONNALISEES */
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;600;800;900&display=swap');
 
+html {
+    height: -webkit-fill-available;
+}
+
 body{
     width: 100vw; /* 1vw = 1% largeur, 1vh = 1% hauteur */
-    height: 100vh;
+    height: -webkit-fill-available;
     margin: 0px;
     background: #FFF;
 }
@@ -197,6 +201,11 @@ body{
     box-shadow: 0vh 0vh 1vh #000000FF;
     transition: 0.1s ease-in;
     cursor: pointer;
+}
+
+.command_button:active {
+    box-shadow: inset 0vh 0vh 1vh #00000088;
+    transition: 0.1s ease-in;
 }
 
 #attack_button {
