@@ -25,7 +25,6 @@ body{
 
 /* ZONE COMBAT */
 #combat_area {
-    /*background: #F00;*/
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -153,15 +152,29 @@ body{
     box-shadow: inset 0vh 0vh 1vh #00000088;
 }
 
-.filler #health_bar{
-    background: #6F6;
+#health_bar{
+    display: flex;
+    align-items: center;
+    background: #66ff66;
+    color: #000000AA;
+    font-family: Rubik, Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 2vh;
+    padding-left: 1vh;
     border-radius: 2vh;
     box-shadow: inset 0vh 0vh 1vh #00000088;
     height: 100%;
 }
 
-.filler #mana_bar {
+#mana_bar {
+    display: flex;
+    align-items: center;
     background: #5b28c3;
+    color: #000000AA;
+    font-family: Rubik, Helvetica, sans-serif;
+    font-weight: 600;
+    font-size: 2vh;
+    padding-left: 1vh;
     border-radius: 2vh;
     box-shadow: inset 0vh 0vh 1vh #00000088;
     height: 100%;
