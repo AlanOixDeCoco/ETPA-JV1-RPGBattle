@@ -98,7 +98,7 @@ body{
     cursor:not-allowed;
 }
 .character_img:hover{
-    cursor: url(Assets/Capaities/capacity_attack_32px.png) 16 16, pointer;
+    cursor: url(Assets/Capacities/capacity_attack_32px.png) 16 16, pointer;
 }
 
 /* ZONE COMMANDES ET INFOS */
