@@ -51,7 +51,6 @@ body{
 .ennemy_img {
     width: 16vh;
     margin-bottom: 1vh;
-    filter: drop-shadow(0 0 .5vh black)
 }
 
 #characters_container {
@@ -69,7 +68,6 @@ body{
 .character_img {
     width: 12vh;
     margin-top: 1vh;
-    filter: drop-shadow(0 0 .5vh black)
 }
 
 .cursor {
@@ -100,7 +98,7 @@ body{
     cursor:not-allowed;
 }
 .character_img:hover{
-    cursor: url(Assets/crossed_swords.png) 16 16, pointer;
+    cursor: url(Assets/Capaities/capacity_attack_32px.png) 16 16, pointer;
 }
 
 /* ZONE COMMANDES ET INFOS */

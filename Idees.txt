@@ -1,3 +1,4 @@
 Pour les attaques spéciales :
 - soit faire une liste de tous les effets (~pattern commande général, avec à chaque début/fin de tour l'application des effets successifs)
 - soit une liste des effets appliqués à chaque personnage/ennemi dans sa liste de données (~pattern commande par personnage, en début ou fin de SON tour)
+    --> peut-être plus logique
