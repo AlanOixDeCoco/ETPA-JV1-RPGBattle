@@ -39,7 +39,7 @@ const INNIT_PROTECT_VALUE = false // by default the player can receive full dama
 //#endregion
 
 // characters are defined as arrays of values, themselves inside another array
-var lst_characters = [
+let lst_characters = [
     // html ID, NAME, HP (health pts), DMG (damage pts), MANA, SPE (special ability function), list of active capacities (poisoned, confused, ...)
     ["character_1", "Giro Smileur", MAX_CHARACTERS_HEALTH, 10, MAX_CHARACTERS_MANA, Heal, INNIT_PROTECT_VALUE, []],
     ["character_2", "Turbo Incognito", MAX_CHARACTERS_HEALTH, 10, MAX_CHARACTERS_MANA, Heal, INNIT_PROTECT_VALUE, []], 
@@ -91,7 +91,7 @@ function Heal(target, amount){
     if(target[HP] > MAX_CHARACTERS_HEALTH){
         target[HP] = MAX_CHARACTERS_HEALTH;
     }
-    return `${target[NAME]} a reçu ${amount} PV de soin !\n${target[NAME]} a désormais ${target[HP]} PV.`
+    return `${target[NAME]} a reçu ${amount} PV de soin !<br>${target[NAME]} a désormais ${target[HP]} PV.`
 }
 
 // CONFUSE: Reduces 'target' damage by 'amount' pts, and returns the action description sentence
@@ -100,7 +100,7 @@ function Confuse(target, amount){
     if(target[DMG] < MIN_ENNEMIES_DAMAGE){
         target[DMG] = MIN_ENNEMIES_DAMAGE;
     }
-    return `Dégats de ${target[NAME]} réduits de ${amount} !\n${target[NAME]} inflige désormais ${target[DMG]} pts de dégat.`
+    return `Dégats de ${target[NAME]} réduits de ${amount} !<br>${target[NAME]} inflige désormais ${target[DMG]} pts de dégat.`
 }
 //#endregion
 
@@ -137,4 +137,46 @@ function RefreshCharacter(character){
     }
     
 }
+
+function ShowDialogArea(text){
+    document.getElementById("dialog_area").style.top = "2vh";
+    document.getElementById("dialog_area").style.visibility = "visible";
+    document.getElementById("dialog_area").innerHTML = text;
+}
+function HideDialogArea(){
+    document.getElementById("dialog_area").style.top = "-10vh";
+    document.getElementById("dialog_area").style.visibility = "hidden";
+}
+
+function ShowStatsPopup(target, x, y){
+    document.getElementById("stats_popup").style.left = `${x + 16}px`;
+    document.getElementById("stats_popup").style.top = `${y + 16}px`;
+    document.getElementById("stats_popup").style.visibility = "visible";
+    document.getElementById("stats_popup").innerHTML = `<b>${target[1]}</b><br>${target[2]} HP`;
+}
+function HideStatsPopup(){
+    document.getElementById("stats_popup").style.visibility = "hidden";
+}
 //#endregion
+
+// GAME
+// Initialization
+
+// add mouseover events to display the stats when hovering an ennemy
+lst_ennemies.forEach(ennemy => {
+    document.getElementById(ennemy[0]).getElementsByClassName("ennemy_img")[0].addEventListener("mousemove", function(event) {
+        ShowStatsPopup(ennemy, event.clientX, event.clientY);
+    })
+    document.getElementById(ennemy[0]).getElementsByClassName("ennemy_img")[0].addEventListener("mouseout", function(event) {
+        HideStatsPopup();
+    })
+});
+
+lst_characters.forEach(character => {
+    document.getElementById(character[0]).getElementsByClassName("character_img")[0].addEventListener("mousemove", function(event) {
+        ShowStatsPopup(character, event.clientX, event.clientY);
+    })
+    document.getElementById(character[0]).getElementsByClassName("character_img")[0].addEventListener("mouseout", function(event) {
+        HideStatsPopup();
+    })
+});

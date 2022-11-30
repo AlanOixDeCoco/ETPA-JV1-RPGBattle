@@ -4,6 +4,7 @@
 html {
     width: 100%;
     height: 100%;
+    font-family: Rubik, Helvetica, sans-serif;
 }
 
 body{
@@ -94,9 +95,6 @@ body{
     }
 }
 
-.ennemy_img:hover{
-    cursor:not-allowed;
-}
 .character_img:hover{
     cursor: url(Assets/Capacities/capacity_attack_32px.png) 16 16, pointer;
 }
@@ -108,7 +106,7 @@ body{
     left: 0;
     right: 0;
     background: #FFF;
-    box-shadow: 0vh 0vh 2vh #00000088;
+    box-shadow: 0vh 0vh 2vh #000000AA;
     margin: 2vh;
     padding: 2vh;
     border-radius: 3vh;
@@ -147,7 +145,6 @@ body{
 #stats_container p {
     font-size: 2.5vh;
     margin: 1vh 0;
-    font-family: Rubik, Helvetica, sans-serif;
     font-weight: 400;
 }
 
@@ -164,7 +161,6 @@ body{
     align-items: center;
     color: #FFF;
     text-shadow: 0vh 0vh .5vh #000000FF;
-    font-family: Rubik, Helvetica, sans-serif;
     font-weight: 600;
     font-size: 2vh;
     padding-left: 1vh;
@@ -230,7 +226,6 @@ body{
     width: 100%;
     height: 25%;
     font-size: 2.5vh;
-    font-family:Rubik, Helvetica, sans-serif;
     font-weight: 600;
     transition: 0.15s ease-in-out;
 }
@@ -254,4 +249,34 @@ body{
 }
 #special_button {
     background: #f4ae2c;
+}
+
+#dialog_area {
+    position: absolute;
+    top: -10vh;
+    left: 2vh;
+    right: 2vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FFFFFFAA;
+    box-shadow: 0 0 1vh #00000088;
+    border-radius: 2vh;
+    font-size: 2.5vh;
+    padding: 1vh 2vh;
+    transition: 0.2s ease-in-out;
+}
+
+@media (max-aspect-ratio: 1/1) {
+   #dialog_area {
+    justify-content: flex-start;
+   }
+}
+
+#stats_popup{
+    position: absolute;
+    background: #FFFFFFAA;
+    padding: 1vh;
+    border-radius: 1vh;
+    visibility: hidden;
 }
