@@ -82,8 +82,7 @@ function Attack(target, amount){
 }
 
 // DEFEND
-function Defend(target, remainingRounds){
-    if(target[])
+function Defend(target){
 }
 
 // HEAL: Adds 'amount' hp to the 'target', and returns the action description sentence
