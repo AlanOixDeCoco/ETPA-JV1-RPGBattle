@@ -2,7 +2,7 @@
 // 
 // ########### Made by AlanOixDeCoco ###########
 // 
-// /!\ You are totally free to use my code as an inspiration, please consider
+// /!\ You are totaly free to use my code as an inspiration, please consider
 // mentioning this repo if you use it as a base for your code! *pray* /!\
 //
 // ### INFORMATIONS ###
@@ -13,11 +13,12 @@
 // UpperCase for functions
 // Capital letters for constants
 // ==============
-// 
 
-//#region characters & ennemies arrays
+// Window / System access variables
+var _clientWidth = document.documentElement.clientWidth;
 
-//#region constants
+//#region characters & ennemies
+
 // Indexes constants
 const ID = 0 // characters/ennemies ID index in arrays
 const NAME = 1 // characters/ennemies NAME index in arrays
@@ -36,12 +37,11 @@ const MAX_ENNEMIES_HEALTH = 150 // max ennemies HP
 const MIN_ENNEMIES_DAMAGE = 10 // minimum damage to deal to the characters
 
 const INNIT_PROTECT_VALUE = false // by default the player can receive full damage
-//#endregion
 
 // characters are defined as arrays of values, themselves inside another array
-let lst_characters = [
+var lst_characters = [
     // html ID, NAME, HP (health pts), DMG (damage pts), MANA, SPE (special ability function), list of active capacities (poisoned, confused, ...)
-    ["character_1", "Giro Smileur", MAX_CHARACTERS_HEALTH, 10, MAX_CHARACTERS_MANA, Heal, INNIT_PROTECT_VALUE, []],
+    ["character_1", "Giro Smileur", 0, 10, MAX_CHARACTERS_MANA, Heal, INNIT_PROTECT_VALUE, []],
     ["character_2", "Turbo Incognito", MAX_CHARACTERS_HEALTH, 10, MAX_CHARACTERS_MANA, Heal, INNIT_PROTECT_VALUE, []], 
     ["character_3", "Ultra Cowboy", MAX_CHARACTERS_HEALTH, 10, MAX_CHARACTERS_MANA, Heal, INNIT_PROTECT_VALUE, []], 
     ["character_4", "Giga Chad", MAX_CHARACTERS_HEALTH, 10, MAX_CHARACTERS_MANA, Heal, INNIT_PROTECT_VALUE, []]
@@ -54,9 +54,7 @@ var lst_ennemies = [
 ];
 //#endregion
 
-//#region capacities
-
-//#region constants
+//#region Capacities
 // Indexes constants
 const CAP_ATTACK = 0 // Attack capacity index on the capacities list
 const CAP_DEFEND = 1 // Defend capacity
@@ -64,7 +62,6 @@ const CAP_HEAL = 2 // Heal capacity
 const CAP_BOOST = 3 // Boost capacity
 const CAP_POISON = 4 // Poison capacity
 const CAP_CONFUSE = 5 // Confuse capacity
-//#endregion
 
 var lst_capacities = [
     ["Attack", "capacity_attack", Attack],
@@ -72,7 +69,6 @@ var lst_capacities = [
     ["Heal", "capacity_heal", Heal]
 ];
 
-//#region 
 // ATTACK
 function Attack(target, amount){
     target[HP] -= amount;
@@ -104,7 +100,7 @@ function Confuse(target, amount){
 }
 //#endregion
 
-//#region Visual refreshing functions
+// #region Update elements grahics / values
 // refreshes stats to the desired character
 function RefreshStatsArea(character){
     if(character[HP] > 0){
@@ -126,57 +122,81 @@ function RefreshStatsArea(character){
     document.getElementById("stats_container").getElementsByClassName("mana_bar")[0].innerHTML = `${character[MANA]}/${MAX_CHARACTERS_MANA}` // changes the mana bar text
 }
 
-function RefreshCharacter(character){
-    // hide whole character container if dead
-    if(character[HP] <= 0){
-        document.getElementById(character[ID]).style.visibility = "hidden";
-    }
-    // else edit health bar value
-    else {
-        document.getElementById(character[0]).getElementsByClassName("health_bar")[0].style.marginRight = `${100 - ((character[HP]/MAX_CHARACTERS_HEALTH) * 100)}%`;
-    }
-    
+// Kill character / ennemy when called
+function KillCharacter(character){
+    // replace character image with character dead one and change the mouse cursor when hovering
+    characterImage = document.getElementById(character[ID]).getElementsByTagName("img")[1];
+    characterImage.src = "Assets/Characters/character_dead.png";
+    characterImage.style.cursor = "not-allowed";
 }
+function KillEnnemy(ennemy){
+    // replace ennemy image with ennemy dead one and change the mouse cursor when hovering
+    ennemyImage = document.getElementById(ennemy[ID]).getElementsByTagName("img")[1];
+    ennemyImage.src = "Assets/Ennemies/ennemy_dead.png";
+    ennemyImage.style.cursor = "not-allowed";
+}
+// #endregion
 
+// #region Display / hide elements
+// Show & Hide dialog popup and fill with 'text'
 function ShowDialogArea(text){
-    document.getElementById("dialog_area").style.top = "2vh";
-    document.getElementById("dialog_area").style.visibility = "visible";
-    document.getElementById("dialog_area").innerHTML = text;
+    dialogAreaElement = document.getElementById("dialog_area");
+    dialogAreaElement.style.top = "2vh";
+    dialogAreaElement.style.visibility = "visible";
+    dialogAreaElement.innerHTML = text;
 }
 function HideDialogArea(){
-    document.getElementById("dialog_area").style.top = "-10vh";
-    document.getElementById("dialog_area").style.visibility = "hidden";
+    dialogAreaElement = document.getElementById("dialog_area");
+    dialogAreaElement.style.top = "-10vh";
+    dialogAreaElement.style.visibility = "hidden";
 }
-
-function ShowStatsPopup(target, x, y){
-    document.getElementById("stats_popup").style.left = `${x + 16}px`;
-    document.getElementById("stats_popup").style.top = `${y + 16}px`;
-    document.getElementById("stats_popup").style.visibility = "visible";
-    document.getElementById("stats_popup").innerHTML = `<b>${target[1]}</b><br>${target[2]} HP`;
+// Show & Hide health popup and replace text accordingly
+function ShowHealthPopup(target, x, y){
+    statsPopupElement = document.getElementById("stats_popup");
+    if(x < (_clientWidth - 120)) {
+        statsPopupElement.style.removeProperty("right");
+        statsPopupElement.style.left = `${x + 16}px`;
+    }
+    else {
+        statsPopupElement.style.removeProperty("left");
+        statsPopupElement.style.right = `${_clientWidth - (x - 16)}px`;
+    }
+    statsPopupElement.style.top = `${y + 16}px`;
+    statsPopupElement.style.visibility = "visible";
+    statsPopupElement.innerHTML = `<b>${target[1]}</b><br>${target[2]} HP`;
+    
 }
-function HideStatsPopup(){
-    document.getElementById("stats_popup").style.visibility = "hidden";
+function HideHealthPopup(){
+    statsPopupElement = document.getElementById("stats_popup");
+    statsPopupElement.style.visibility = "hidden";
 }
-//#endregion
+// #endregion
 
-// GAME
-// Initialization
-
+// #region GAME
+// #region Initialization
 // add mouseover events to display the stats when hovering an ennemy
 lst_ennemies.forEach(ennemy => {
-    document.getElementById(ennemy[0]).getElementsByClassName("ennemy_img")[0].addEventListener("mousemove", function(event) {
-        ShowStatsPopup(ennemy, event.clientX, event.clientY);
+    var ennemyElement = document.getElementById(ennemy[0]);
+    ennemyElement.getElementsByClassName("ennemy_img")[0].addEventListener("mousemove", function(event) {
+        ShowHealthPopup(ennemy, event.clientX, event.clientY);
     })
-    document.getElementById(ennemy[0]).getElementsByClassName("ennemy_img")[0].addEventListener("mouseout", function(event) {
-        HideStatsPopup();
+    ennemyElement.getElementsByClassName("ennemy_img")[0].addEventListener("mouseout", function(event) {
+        HideHealthPopup();
     })
 });
-
 lst_characters.forEach(character => {
-    document.getElementById(character[0]).getElementsByClassName("character_img")[0].addEventListener("mousemove", function(event) {
-        ShowStatsPopup(character, event.clientX, event.clientY);
+    var characterElement = document.getElementById(character[0])
+    characterElement.getElementsByClassName("character_img")[0].addEventListener("mousemove", function(event) {
+        ShowHealthPopup(character, event.clientX, event.clientY);
     })
-    document.getElementById(character[0]).getElementsByClassName("character_img")[0].addEventListener("mouseout", function(event) {
-        HideStatsPopup();
+    characterElement.getElementsByClassName("character_img")[0].addEventListener("mouseout", function(event) {
+        HideHealthPopup();
     })
 });
+// #endregion
+
+//tests
+KillEnnemy(lst_ennemies[2]);
+KillCharacter(lst_characters[0]);
+
+// #endregion

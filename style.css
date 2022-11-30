@@ -69,12 +69,13 @@ body{
 .character_img {
     width: 12vh;
     margin-top: 1vh;
+    cursor: url(Assets/Capacities/capacity_attack_32px.png) 16 16, pointer;
 }
 
 .cursor {
     width: 6vh;
     visibility: hidden;
-    filter: drop-shadow(0 0 .5vh black)
+    filter: drop-shadow(0 0 .5vh black);
 }
 
 @media (max-aspect-ratio: 1/1) {
@@ -94,11 +95,6 @@ body{
         width: 8vw;
     }
 }
-
-.character_img:hover{
-    cursor: url(Assets/Capacities/capacity_attack_32px.png) 16 16, pointer;
-}
-
 /* ZONE COMMANDES ET INFOS */
 
 #command_area {
@@ -228,12 +224,12 @@ body{
     font-size: 2.5vh;
     font-weight: 600;
     transition: 0.15s ease-in-out;
+    cursor: pointer;
 }
 
 .command_button:hover {
     box-shadow: 0vh 0vh .5vh #000000DD;
     transition: 0.15s ease-in-out;
-    cursor: pointer;
 }
 
 .command_button:active {
