@@ -33,7 +33,7 @@ const MAX_CHARACTERS_MANA = 100 // max characters MANA
 const MAX_CHARACTERS_DAMAGE = 20 // maximum damage to deal to the ennemies
 
 // Values constants : ennemies
-const MAX_ENNEMIES_HEALTH = 150 // max ennemies HP
+const MAX_ENNEMIES_HEALTH = 200 // max ennemies HP
 const MIN_ENNEMIES_DAMAGE = 10 // minimum damage to deal to the characters
 
 const INNIT_PROTECT_VALUE = false // by default the player can receive full damage
@@ -102,7 +102,7 @@ function Confuse(target, amount){
 
 // #region Update elements grahics / values
 // refreshes stats to the desired character
-function RefreshStatsArea(character){
+function UpdateStatsArea(character){
     if(character[HP] > 0){
         document.getElementById("stats_container").getElementsByClassName("health_bar")[0].style.marginRight = `${100 - ((character[HP]/MAX_CHARACTERS_HEALTH) * 100)}%`; // changes the filling of the health bar
     }
