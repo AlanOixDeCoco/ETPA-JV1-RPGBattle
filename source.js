@@ -21,114 +21,119 @@ var _clientWidth = document.documentElement.clientWidth;
 
 // #region Characters & ennemies
 
-// Indexes constants
-const ID = 0 // characters/ennemies ID index in arrays
-const NAME = 1 // characters/ennemies NAME index in arrays
-const HP = 2 // characters/ennemies HP index in arrays
-const DMG = 3 // characters/ennemies DMG (pts) index in arrays
-const MANA = 4 // characters MANA index in arrays
-const SPE = 5 // characters SPECIAL ABILITY index in arrays
-const PROTECTED = 6 // characters PROTECTED bool index in arrays
-const LAST_ACTION = 7 // characters LAST ACTION index in arrays
-const EFFECTS = 8 // characters active EFFECTS index in arrays
+// Characters/ennemies data indexes constants
+const ID = 0            // characters/ennemies ID index in arrays
+const NAME = 1          // characters/ennemies NAME index in arrays
+const HP = 2            // characters/ennemies HP index in arrays
+const DMG = 3           // characters/ennemies DMG (pts) index in arrays
+const EFFECTS = 4       // characters/ennemies active EFFECTS index in arrays
+// --> Character only data indexes
+const MANA = 5          // characters MANA index in arrays
+const SPE = 6           // characters SPECIAL ABILITY index in arrays
+const PROTECTED = 7     // characters PROTECTED bool index in arrays
+const LAST_ACTION = 8   // characters LAST ACTION index in arrays
 
 // Values constants : characters
 const MAX_CHARACTERS_HEALTH = 100 // max characters HP
 const MAX_CHARACTERS_MANA = 100 // max characters MANA
 const MAX_CHARACTERS_DAMAGE = 20 // maximum damage to deal to the ennemies
+const INNIT_PROTECT_VALUE = false // by default the player can receive full damage
 
 // Values constants : ennemies
 const MAX_ENNEMIES_HEALTH = 200 // max ennemies HP
 const MIN_ENNEMIES_DAMAGE = 10 // minimum damage to deal to the characters
 
-const INNIT_PROTECT_VALUE = false // by default the player can receive full damage
-
 // Actions indexes constants
-const ACTION_ATTACK = 0 // Attack capacity index on the capacities list
-const ACTION_DEFEND = 1 // Defend capacity
-const ACTION_HEAL = 2 // Heal capacity
-const ACTION_BOOST = 3 // Boost capacity
-const ACTION_POISON = 4 // Poison capacity
-const ACTION_CONFUSE = 5 // Confuse capacity
+const ACTION_ATTACK = 0     // Attack action index on the capacities list
+const ACTION_DEFEND = 1     // Defend action
+const ACTION_HEAL = 2       // Heal action
+const ACTION_BOOST = 3      // Boost action
+const ACTION_POISON = 4     // Poison action
+const ACTION_CONFUSE = 5    // Confuse action
+
+// Actions data indexes constants
+const ACTION_NAME = 0
+
 
 // actions are defined as arrays of values, the last one being the function
 var lst_actions = [
-    // action 
     [   "Attack", 
-        "capacity_attack", 
+        "action_attack", 
         Attack
     ],
     [   "Defend", 
-        "capacity_defend", 
+        "action_defend", 
         Defend
     ],
     [   "Heal", 
-        "capacity_heal", 
+        "action_heal", 
         Heal
     ]
 ];
 
 // characters are defined as arrays of values, themselves inside another array
 var lst_characters = [
-    // html ID, NAME, HP (health pts), DMG (damage pts), MANA, SPE (special ability), PROTECTED bool, LAST ACTION performed, list of active EFFECTS (poisoned, confused, ...)
-    [   "character_1", 
-        "Giro Smileur", 
-        MAX_CHARACTERS_HEALTH, 
-        10, 
-        MAX_CHARACTERS_MANA, 
-        lst_actions[ACTION_HEAL], 
-        INNIT_PROTECT_VALUE, 
-        null, 
-        []
+    // use the constants to access the desired index to make it more clear
+    [   "character_1",              // html ID,
+        "Giro Smileur",             // NAME,
+        MAX_CHARACTERS_HEALTH,      // HP (health pts),
+        10,                         // DMG (damage pts),
+        [],                         // list of active EFFECTS (poisoned, confused, ...), 
+        MAX_CHARACTERS_MANA,        // MANA,
+        lst_actions[ACTION_HEAL],   // SPE (special ability),
+        INNIT_PROTECT_VALUE,        // PROTECTED bool,
+        null                        // LAST ACTION performed
     ],
-    [   "character_2", 
-        "Turbo Incognito", 
-        MAX_CHARACTERS_HEALTH, 
-        10, 
-        MAX_CHARACTERS_MANA, 
-        lst_actions[ACTION_HEAL], 
-        INNIT_PROTECT_VALUE, 
-        null, 
-        []
+    [   "character_2",              // html ID,
+        "Turbo Incognito",          // NAME,
+        MAX_CHARACTERS_HEALTH,      // HP (health pts),
+        10,                         // DMG (damage pts),
+        [],                         // list of active EFFECTS (poisoned, confused, ...), 
+        MAX_CHARACTERS_MANA,        // MANA,
+        lst_actions[ACTION_HEAL],   // SPE (special ability),
+        INNIT_PROTECT_VALUE,        // PROTECTED bool,
+        null                        // LAST ACTION performed
     ], 
-    [   "character_3", 
-        "Ultra Cowboy", 
-        MAX_CHARACTERS_HEALTH, 
-        10, 
-        MAX_CHARACTERS_MANA, 
-        lst_actions[ACTION_HEAL], 
-        INNIT_PROTECT_VALUE, 
-        null, 
-        []
+    [   "character_3",              // html ID,
+        "Ultra Cowboy",             // NAME,
+        MAX_CHARACTERS_HEALTH,      // HP (health pts),
+        10,                         // DMG (damage pts),
+        [],                         // list of active EFFECTS (poisoned, confused, ...), 
+        MAX_CHARACTERS_MANA,        // MANA,
+        lst_actions[ACTION_HEAL],   // SPE (special ability),
+        INNIT_PROTECT_VALUE,        // PROTECTED bool,
+        null                        // LAST ACTION performed
     ], 
-    [   "character_4", 
-        "Giga Chad", 
-        MAX_CHARACTERS_HEALTH, 
-        10, 
-        MAX_CHARACTERS_MANA, 
-        lst_actions[ACTION_HEAL], 
-        INNIT_PROTECT_VALUE, 
-        null, 
-        []
+    [   "character_4",              // html ID,
+        "Giga Chad",                // NAME,
+        MAX_CHARACTERS_HEALTH,      // HP (health pts),
+        10,                         // DMG (damage pts),
+        [],                         // list of active EFFECTS (poisoned, confused, ...), 
+        MAX_CHARACTERS_MANA,        // MANA,
+        lst_actions[ACTION_HEAL],   // SPE (special ability),
+        INNIT_PROTECT_VALUE,        // PROTECTED bool,
+        null                        // LAST ACTION performed
     ]
 ];
 // ennemies are defined as the characters are
 var lst_ennemies = [
-    // html ID, NAME, HP (health pts), DMG (damage pts),
-    [   "ennemy_1", 
-        "Clown", 
-        MAX_ENNEMIES_HEALTH, 
-        15
+    [   "ennemy_1",             // html ID,
+        "Clown",                // NAME,
+        MAX_ENNEMIES_HEALTH,    // HP (health pts),
+        15,                     // DMG (damage pts),
+        []                      // list of active EFFECTS (poisoned, confused, ...)
     ], 
     [   "ennemy_2", 
         "Ogre", 
         MAX_ENNEMIES_HEALTH, 
-        15
+        15,
+        []
     ], 
     [   "ennemy_3", 
         "Goblin", 
         MAX_ENNEMIES_HEALTH, 
-        15
+        15,
+        []
     ]
 ];
 //#endregion
@@ -275,6 +280,5 @@ lst_characters.forEach(character => {
 // #endregion
 
 //tests
-KillEnnemy(lst_ennemies[2]);
 
 // #endregion
