@@ -260,12 +260,13 @@ body{
     border-radius: 2vh;
     font-size: 2.5vh;
     padding: 1vh 2vh;
-    transition: 0.2s ease-in-out;
+    transition: 0.5s ease-in-out;
 }
 
 @media (max-aspect-ratio: 1/1) {
    #dialog_area {
     justify-content: flex-start;
+    font-size: 4vw;
    }
 }
 
