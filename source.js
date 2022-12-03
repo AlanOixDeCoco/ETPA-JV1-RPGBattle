@@ -265,7 +265,7 @@ var lst_ennemies = [
     ]
 ];
 
-//#endregion
+// #endregion
 
 // #region Update elements grahics / values
 // refreshes stats to the desired character

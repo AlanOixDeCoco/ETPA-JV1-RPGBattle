@@ -268,13 +268,13 @@ body{
 }
 
 @media (max-aspect-ratio: 1/1) {
-   #dialog_area {
-    justify-content: flex-start;
-    font-size: 4vw;
+    #dialog_area {
+        justify-content: flex-start;
+        font-size: 4vw;
    }
 }
 
-#stats_popup{
+#stats_popup {
     position: absolute;
     background: #FFFFFFAA;
     padding: 1vh;
@@ -288,6 +288,6 @@ body{
     height: 3vh;
 }
 
-.effect_icon{
+.effect_icon {
     height: 100%;
 }
