@@ -16,7 +16,7 @@
 
 // #region Core game variables & functions
 // Window / System access variables
-var _clientWidth = document.documentElement.clientWidth;
+let _clientWidth = document.documentElement.clientWidth;
 
 // returns a random int between min and max values
 function RandomInt(min, max){
@@ -62,7 +62,7 @@ const ACTION_SPRITE = 1     // action SPRITE, "sprite".png / "sprite"_32px.png
 const ACTION_FUNCTION = 2   // action FUNCTION
 
 // actions are defined as arrays of values, the last one being the function
-var lst_actions = [
+let lst_actions = [
     [   "Attack",           // 0: action NAME
         "action_attack",    // 1: action SPRITE
         Attack              // 2: action FUNCTION
@@ -171,7 +171,7 @@ function AddEffect(effect, target, icon, amount, duration){
     target[EFFECTS].push([effect, amount, duration]);
 
     // then add the coresponding icon to the target
-    var effectImg = document.createElement("img");
+    let effectImg = document.createElement("img");
     effectImg.setAttribute("class", "effect_icon");
     effectImg.setAttribute("src", `Assets/Actions/${icon}.png`);
     document.getElementById(target[ID]).getElementsByClassName("effects_container")[0].appendChild(effectImg);
@@ -180,12 +180,12 @@ function AddEffect(effect, target, icon, amount, duration){
 function TakeEffect(context, effectIndex){
     context[EFFECTS][effectIndex][0](context, context[EFFECTS][effectIndex][1]); // executes effect function
     context[EFFECTS][effectIndex][2] -= 1; // then remove 1 round to the counter
-    if(context[EFFECTS][effectIndex][2] <= 0) RemoveEffect(context, effectIndex);
+    if(context[EFFECTS][effectIndex][2] <= 0) RemoveEffect(context, effectIndex); // if needed, remove the effect from list
 }
 
 function RemoveEffect(context, index){
     context[EFFECTS].splice(index, 1); // remove specified effect index from list
-    var effectImg = document.getElementById(`${context[ID]}-${index}`);
+    let effectImg = document.getElementById(`${context[ID]}-${index}`);
     document.getElementById(context[ID]).getElementsByClassName("effects_container")[0].children.item(index).remove();
 }
 
@@ -200,7 +200,7 @@ function Poisoned(context, damage){
 // #endregion
 
 // characters are defined as arrays of values, themselves inside another array
-var lst_characters = [
+let lst_characters = [
     // use the constants to access the desired index to make it more clear
     [   "character_1",              // 0: html ID,
         "Giro Smileur",             // 1: NAME,
@@ -244,7 +244,7 @@ var lst_characters = [
     ]
 ];
 // ennemies are defined as the characters are
-var lst_ennemies = [
+let lst_ennemies = [
     [   "ennemy_1",                 // 0: html ID,
         "Clown",                    // 1: NAME,
         MAX_ENNEMIES_HEALTH,        // 2: HP (health pts),
@@ -296,7 +296,7 @@ function KillCharacter(character){
     characterImage.src = "Assets/Characters/character_dead.png";
     characterImage.style.opacity = 0.5;
     characterImage.style.pointerEvents = "none";
-    ShowMessage(`${character[NAME]} nous a quitté...<br>Il te reste ${lst_characters.length} personnage(s) en vie !`);
+    ShowMessage(`${character[NAME]} nous a quitté...<br>Il te reste ${lst_characters.length - 1} personnage(s) en vie !`);
     lst_characters.splice(lst_characters.indexOf(character), 1); // remove specified character from list
 }
 function KillEnnemy(ennemy){
@@ -304,8 +304,8 @@ function KillEnnemy(ennemy){
     ennemyImage = document.getElementById(ennemy[ID]).getElementsByTagName("img")[1];
     ennemyImage.src = "Assets/Ennemies/ennemy_dead.png";
     ennemyImage.style.cursor = "not-allowed";
+    ShowMessage(`${ennemy[NAME]} est mort !<br>Il reste ${lst_ennemies.length - 1} ennemi(s) en vie !`);
     lst_ennemies.splice(lst_ennemies.indexOf(ennemy), 1); // remove specified character from list
-    ShowMessage(`${ennemy[NAME]} est mort !<br>Il reste ${lst_ennemies.length} ennemi(s) en vie !`);
 }
 // #endregion
 
@@ -357,7 +357,7 @@ function HideHealthTooltip(){
 // #region Initialization
 // add mouseover events to display the stats when hovering an ennemy
 lst_ennemies.forEach(ennemy => {
-    var ennemyElement = document.getElementById(ennemy[0]);
+    let ennemyElement = document.getElementById(ennemy[0]);
     ennemyElement.getElementsByClassName("ennemy_img")[0].addEventListener("mousemove", function(event) {
         ShowHealthTooltip(ennemy, event.clientX, event.clientY);
     })
@@ -366,7 +366,7 @@ lst_ennemies.forEach(ennemy => {
     })
 });
 lst_characters.forEach(character => {
-    var characterElement = document.getElementById(character[0])
+    let characterElement = document.getElementById(character[0])
     characterElement.getElementsByClassName("character_img")[0].addEventListener("mousemove", function(event) {
         ShowHealthTooltip(character, event.clientX, event.clientY);
     })
