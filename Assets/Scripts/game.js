@@ -66,6 +66,10 @@ let lst_ennemies = [
 ];
 // #endregion
 
+// #region FUNCTIONS
+
+// #endregion
+
 // #region INITIALIZATION
 // add mouseover events to display the stats when cursor is over the characters ...
 lst_ennemies.forEach(ennemy => {
@@ -89,6 +93,8 @@ lst_characters.forEach(character => {
 });
 // #endregion
 
-// #region
+// #region INTRODUCTION
 
+// Tutorial
+ShowMessage("Bienvenue dans le monde merveilleux des émojis !", 4);
 // #endregion

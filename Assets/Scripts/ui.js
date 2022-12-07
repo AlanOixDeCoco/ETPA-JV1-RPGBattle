@@ -1,3 +1,10 @@
+// #region VARIABLES
+let lst_MessagesQueue = []; // stores the queue of messages to display to the user
+let func_MessageFallback = null; // stores the current message fallback function (if skipping)
+let bool_isBusy = false; // state of the message popup
+// #endregion
+
+// #region FUNCTIONS
 // refreshes stats to the desired character
 function UpdateStatsArea(character){
     if(character[HP] > 0){
@@ -20,13 +27,28 @@ function UpdateStatsArea(character){
 }
 
 // display a message in the dialog area for 'duration' seconds (5s by default)
-function ShowMessage(message, duration = 5){
-    ShowDialogArea(message);
-    setTimeout(HideDialogArea, duration * 1000);
+function ShowMessage(message, duration = 5, fallback = null){
+    if(message){
+        lst_MessagesQueue.push(function() {
+            ShowDialogArea(message);
+            setTimeout(HideDialogArea, duration * 1000);
+            if(fallback){
+                func_MessageFallback = fallback;
+                setTimeout(function() {
+                    if(func_MessageFallback) func_MessageFallback;
+                }, (duration + 1) * 1000);
+            }
+        });
+    }
+    if(!bool_isBusy && (lst_MessagesQueue.length > 0)){
+        lst_MessagesQueue[0]();
+        lst_MessagesQueue.shift();
+    }
 }
 
 // Show & Hide dialog popup and fill with 'text'
 function ShowDialogArea(text){
+    bool_isBusy = true;
     dialogAreaElement = document.getElementById("dialog_area");
     dialogAreaElement.innerHTML = text;
     dialogAreaElement.style.top = `-${dialogAreaElement.offsetHeight}px`; // use the message box dimensions to properly show it
@@ -37,6 +59,8 @@ function HideDialogArea(){
     dialogAreaElement = document.getElementById("dialog_area");
     dialogAreaElement.style.top = `-${dialogAreaElement.offsetHeight}px`; // use the message box dimensions to properly hide it
     dialogAreaElement.style.visibility = "hidden";
+    bool_isBusy = false;
+    setTimeout(ShowMessage, 600);
 }
 
 // Show & Hide health popup and replace text accordingly
@@ -59,3 +83,4 @@ function HideHealthTooltip(){
     statsPopupElement = document.getElementById("stats_popup");
     statsPopupElement.style.visibility = "hidden";
 }
+// #endregion
