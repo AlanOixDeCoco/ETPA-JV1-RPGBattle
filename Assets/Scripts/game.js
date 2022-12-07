@@ -1,69 +1,5 @@
 // #region VARIABLES
-// characters are defined as arrays of values, themselves inside another array of characters
-let lst_characters = [
-    // use the constants to access the desired index to make it more clear
-    [   "character_1",              // 0: html ID,
-        "Giro Smileur",             // 1: NAME,
-        MAX_CHARACTERS_HEALTH,      // 2: HP (health pts),
-        MAX_CHARACTERS_DAMAGE / 2,  // 3: DMG (damage pts),
-        [],                         // 4: list of active EFFECTS (poisoned, confused, ...), 
-        MAX_CHARACTERS_MANA,        // 5: MANA,
-        ACTION_HEAL,                // 6: SPE (special ability),
-        INNIT_PROTECT_VALUE,        // 7: PROTECTED bool,
-        null                        // 8: LAST ACTION performed
-    ],
-    [   "character_2",              // 0: html ID,
-        "Turbo Incognito",          // 1: NAME,
-        MAX_CHARACTERS_HEALTH,      // 2: HP (health pts),
-        MAX_CHARACTERS_DAMAGE / 2,  // 3: DMG (damage pts),
-        [],                         // 4: list of active EFFECTS (poisoned, confused, ...), 
-        MAX_CHARACTERS_MANA,        // 5: MANA,
-        ACTION_HEAL,                // 6: SPE (special ability),
-        INNIT_PROTECT_VALUE,        // 7: PROTECTED bool,
-        null                        // 8: LAST ACTION performed
-    ], 
-    [   "character_3",              // 0: html ID,
-        "Ultra Cowboy",             // 1: NAME,
-        MAX_CHARACTERS_HEALTH,      // 2: HP (health pts),
-        MAX_CHARACTERS_DAMAGE / 2,  // 3: DMG (damage pts),
-        [],                         // 4: list of active EFFECTS (poisoned, confused, ...), 
-        MAX_CHARACTERS_MANA,        // 5: MANA,
-        ACTION_HEAL,                // 6: SPE (special ability),
-        INNIT_PROTECT_VALUE,        // 7: PROTECTED bool,
-        null                        // 8: LAST ACTION performed
-    ], 
-    [   "character_4",              // 0: html ID,
-        "Giga Chad",                // 1: NAME,
-        MAX_CHARACTERS_HEALTH,      // 2: HP (health pts),
-        MAX_CHARACTERS_DAMAGE / 2,  // 3: DMG (damage pts),
-        [],                         // 4: list of active EFFECTS (poisoned, confused, ...), 
-        MAX_CHARACTERS_MANA,        // 5: MANA,
-        ACTION_HEAL,                // 6: SPE (special ability),
-        INNIT_PROTECT_VALUE,        // 7: PROTECTED bool,
-        null                        // 8: LAST ACTION performed
-    ]
-];
-// ennemies are defined as the characters are, without some character specific data
-let lst_ennemies = [
-    [   "ennemy_1",                 // 0: html ID,
-        "Clown",                    // 1: NAME,
-        MAX_ENNEMIES_HEALTH,        // 2: HP (health pts),
-        MIN_ENNEMIES_DAMAGE * 2,    // 3: DMG (damage pts),
-        []                          // 4: list of active EFFECTS (poisoned, confused, ...)
-    ], 
-    [   "ennemy_2",                 // 0: html ID,
-        "Ogre",                     // 1: NAME,
-        MAX_ENNEMIES_HEALTH,        // 2: HP (health pts),
-        MIN_ENNEMIES_DAMAGE * 2,    // 3: DMG (damage pts),
-        []                          // 4: list of active EFFECTS (poisoned, confused, ...)
-    ], 
-    [   "ennemy_3",                 // 0: html ID,
-        "Goblin",                   // 1: NAME,
-        MAX_ENNEMIES_HEALTH,        // 2: HP (health pts),
-        MIN_ENNEMIES_DAMAGE * 2,    // 3: DMG (damage pts),
-        []                          // 4: list of active EFFECTS (poisoned, confused, ...)
-    ]
-];
+
 // #endregion
 
 // #region FUNCTIONS
@@ -95,6 +31,19 @@ lst_characters.forEach(character => {
 
 // #region INTRODUCTION
 
-// Tutorial
-ShowMessage("Bienvenue dans le monde merveilleux des émojis !", 4);
+// Context
+DeactivateCommands();
+ShowMessage("Bienvenue dans le monde des <b>émojis</b> !", 2);
+ShowMessage("<b>Micrasuft</b> a laissé s'échapper sa horde de vilains et il est de votre devoir de les arrêter !", 3);
+ShowMessage("Exploitez la bravoure et les compétences de votre équipe pour vaincre les créatures de Micrasuft.", 3);
+ShowMessage("Laissez-moi vous les présenter...", 2, () => {SelectCharacter(lst_characters[0]);});
+ShowMessage("<b>GIRO SMILEUR</b>", 2);
+ShowMessage("Le plus grand smileur que cette terre ai porté, il peut exploiter son <b><i>GIRO SMILE</i></b> pour soigner ses alliés.", 4, () => {SelectCharacter(lst_characters[1]);});
+ShowMessage("<b>TURBO INCOGNITO</b>", 2);
+ShowMessage("Turbo chelou, il peut <b><i>EMPOISONNER</i></b> ses ennemis à l'aide de sa turbo potion, ce mec est très douteux...", 4, () => {SelectCharacter(lst_characters[2]);});
+ShowMessage("<b>ULTRA COWBOY</b>", 2);
+ShowMessage("Joie de vivre, reposé, probablement pas un joueur LoL, en plus d'être l'ami des bêtes il a le pouvoir de <b><i>GIGA BOOSTER</i></b> ses alliés.", 6, () => {SelectCharacter(lst_characters[3]);});
+ShowMessage("<b>GIGA CHAD</b>", 2);
+ShowMessage("Le boug est chadesque, une légende urbaine, son <b><i>GIGA STYLE</i></b> peut à lui seul déboussoler ses ennemis et les rendre giga naze.", 6, () => {UnselectCharacter();});
+
 // #endregion

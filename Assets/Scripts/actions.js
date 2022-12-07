@@ -4,34 +4,34 @@ const ACTION_SPRITE = 1     // action SPRITE, "sprite".png / "sprite"_32px.png
 const ACTION_FUNCTION = 2   // action FUNCTION
 
 const ACTION_ATTACK = [    // Attack action
-    "Attack",           // 0: action NAME
-    "action_attack",    // 1: action SPRITE
-    Attack              // 2: action FUNCTION
+    "Attaquer",            // 0: action NAME
+    "action_attack",       // 1: action SPRITE
+    Attack                 // 2: action FUNCTION
 ];
-const ACTION_DEFEND = [   // Defend action
-    "Defend",           // 0: action NAME
-    "action_defend",    // 1: action SPRITE
-    Defend              // 2: action FUNCTION
+const ACTION_DEFEND = [     // Defend action
+    "Défendre",              // 0: action NAME
+    "action_defend",        // 1: action SPRITE
+    Defend                  // 2: action FUNCTION
 ];
-const ACTION_HEAL = [   // Heal action
-    "Heal",             // 0: action NAME
-    "action_heal",      // 1: action SPRITE
-    Heal                // 2: action FUNCTION
+const ACTION_HEAL = [       // Heal action
+    "Giro Smile",           // 0: action NAME
+    "action_heal",          // 1: action SPRITE
+    Heal                    // 2: action FUNCTION
 ];
-const ACTION_POISON = [   // Poison action
-    "Poison",           // 0: action NAME
-    "action_poison",    // 1: action SPRITE
-    Poison              // 2: action FUNCTION
+const ACTION_POISON = [     // Poison action
+    "Empoisonner",          // 0: action NAME
+    "action_poison",        // 1: action SPRITE
+    Poison                  // 2: action FUNCTION
 ];
-const ACTION_BOOST = [   // Boost action
-    "Boost",           // 0: action NAME
-    "action_boost",    // 1: action SPRITE
-    Boost              // 2: action FUNCTION
+const ACTION_BOOST = [  // Boost action
+    "Ultra Boost",      // 0: action NAME
+    "action_boost",     // 1: action SPRITE
+    Boost               // 2: action FUNCTION
 ];
-const ACTION_CONFUSE = [   // Confuse action
-    "Confuse",           // 0: action NAME
-    "action_confuse",    // 1: action SPRITE
-    Confuse              // 2: action FUNCTION
+const ACTION_CONFUSE = [    // Confuse action
+    "Giga Style",            // 0: action NAME
+    "action_confuse",       // 1: action SPRITE
+    Confuse                 // 2: action FUNCTION
 ];
 
 // ATTACK : Attacks 'target' for 'damage' pts, sets 'context' = attacker last action and display the action description sentence

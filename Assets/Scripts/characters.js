@@ -22,11 +22,81 @@ const MAX_ENNEMIES_HEALTH = 200 // max ennemies HP
 const MIN_ENNEMIES_DAMAGE = 10 // minimum damage to deal to the characters
 // #endregion
 
+// #region VARIABLES
+// characters are defined as arrays of values, themselves inside another array of characters
+let lst_characters = [
+    // use the constants to access the desired index to make it more clear
+    [   "character_1",              // 0: html ID,
+        "Giro Smileur",             // 1: NAME,
+        MAX_CHARACTERS_HEALTH,      // 2: HP (health pts),
+        MAX_CHARACTERS_DAMAGE / 2,  // 3: DMG (damage pts),
+        [],                         // 4: list of active EFFECTS (poisoned, confused, ...), 
+        MAX_CHARACTERS_MANA,        // 5: MANA,
+        ACTION_HEAL,                // 6: SPE (special ability),
+        INNIT_PROTECT_VALUE,        // 7: PROTECTED bool,
+        null                        // 8: LAST ACTION performed
+    ],
+    [   "character_2",              // 0: html ID,
+        "Turbo Incognito",          // 1: NAME,
+        MAX_CHARACTERS_HEALTH,      // 2: HP (health pts),
+        MAX_CHARACTERS_DAMAGE / 2,  // 3: DMG (damage pts),
+        [],                         // 4: list of active EFFECTS (poisoned, confused, ...), 
+        MAX_CHARACTERS_MANA,        // 5: MANA,
+        ACTION_HEAL,                // 6: SPE (special ability),
+        INNIT_PROTECT_VALUE,        // 7: PROTECTED bool,
+        null                        // 8: LAST ACTION performed
+    ], 
+    [   "character_3",              // 0: html ID,
+        "Ultra Cowboy",             // 1: NAME,
+        MAX_CHARACTERS_HEALTH,      // 2: HP (health pts),
+        MAX_CHARACTERS_DAMAGE / 2,  // 3: DMG (damage pts),
+        [],                         // 4: list of active EFFECTS (poisoned, confused, ...), 
+        MAX_CHARACTERS_MANA,        // 5: MANA,
+        ACTION_HEAL,                // 6: SPE (special ability),
+        INNIT_PROTECT_VALUE,        // 7: PROTECTED bool,
+        null                        // 8: LAST ACTION performed
+    ], 
+    [   "character_4",              // 0: html ID,
+        "Giga Chad",                // 1: NAME,
+        MAX_CHARACTERS_HEALTH,      // 2: HP (health pts),
+        MAX_CHARACTERS_DAMAGE / 2,  // 3: DMG (damage pts),
+        [],                         // 4: list of active EFFECTS (poisoned, confused, ...), 
+        MAX_CHARACTERS_MANA,        // 5: MANA,
+        ACTION_HEAL,                // 6: SPE (special ability),
+        INNIT_PROTECT_VALUE,        // 7: PROTECTED bool,
+        null                        // 8: LAST ACTION performed
+    ]
+];
+// ennemies are defined as the characters are, without some character specific data
+let lst_ennemies = [
+    [   "ennemy_1",                 // 0: html ID,
+        "Clown",                    // 1: NAME,
+        MAX_ENNEMIES_HEALTH,        // 2: HP (health pts),
+        MIN_ENNEMIES_DAMAGE * 2,    // 3: DMG (damage pts),
+        []                          // 4: list of active EFFECTS (poisoned, confused, ...)
+    ], 
+    [   "ennemy_2",                 // 0: html ID,
+        "Ogre",                     // 1: NAME,
+        MAX_ENNEMIES_HEALTH,        // 2: HP (health pts),
+        MIN_ENNEMIES_DAMAGE * 2,    // 3: DMG (damage pts),
+        []                          // 4: list of active EFFECTS (poisoned, confused, ...)
+    ], 
+    [   "ennemy_3",                 // 0: html ID,
+        "Goblin",                   // 1: NAME,
+        MAX_ENNEMIES_HEALTH,        // 2: HP (health pts),
+        MIN_ENNEMIES_DAMAGE * 2,    // 3: DMG (damage pts),
+        []                          // 4: list of active EFFECTS (poisoned, confused, ...)
+    ]
+];
+
+let _selectedCharacter = null;
+// #endregion
+
 // #region FUNCTIONS
 // Kill character / ennemy when called
 function KillCharacter(character){
     // replace character image with character dead one and change the mouse cursor when hovering
-    characterImage = document.getElementById(character[ID]).getElementsByTagName("img")[1];
+    characterImage = document.getElementById(character[ID]).getElementsByTagName("img")[0];
     characterImage.src = "Assets/Characters/character_dead.png";
     characterImage.style.opacity = 0.5;
     characterImage.style.pointerEvents = "none";
@@ -35,10 +105,23 @@ function KillCharacter(character){
 }
 function KillEnnemy(ennemy){
     // replace ennemy image with ennemy dead one and change the mouse cursor when hovering
-    ennemyImage = document.getElementById(ennemy[ID]).getElementsByTagName("img")[1];
+    ennemyImage = document.getElementById(ennemy[ID]).getElementsByTagName("img")[0];
     ennemyImage.src = "Assets/Ennemies/ennemy_dead.png";
     ennemyImage.style.cursor = "not-allowed";
     ShowMessage(`${ennemy[NAME]} est mort !<br>Il reste ${lst_ennemies.length - 1} ennemi(s) en vie !`);
     lst_ennemies.splice(lst_ennemies.indexOf(ennemy), 1); // remove specified character from list
+}
+
+function SelectCharacter(character){
+    if(_selectedCharacter) UnselectCharacter();
+    _selectedCharacter = character;
+    cursorElement = document.getElementById(character[ID]).getElementsByClassName("cursor")[0];
+    cursorElement.style.opacity = 1;
+}
+
+function UnselectCharacter(){
+    cursorElement = document.getElementById(_selectedCharacter[ID]).getElementsByClassName("cursor")[0];
+    cursorElement.style.opacity = 0;
+    _selectedCharacter = null;
 }
 // #endregion

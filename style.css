@@ -34,12 +34,13 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 #ennemies_container {
     display: flex;
     flex-direction: row;
+    margin-bottom: 5vh;
 }
 
 .ennemy_container {
@@ -73,9 +74,9 @@ body{
 }
 
 .cursor {
-    width: 6vh;
-    visibility: hidden;
-    filter: drop-shadow(0 0 .5vh black);
+    width: 8vh;
+    opacity: 0;
+    transition: 0.3s ease-in-out;
 }
 
 @media (max-aspect-ratio: 1/1) {
@@ -97,7 +98,7 @@ body{
 }
 /* ZONE COMMANDES ET INFOS */
 
-#command_area {
+#commands_area {
     bottom: 0;
     left: 0;
     right: 0;
