@@ -70,7 +70,6 @@ body{
 .character_img {
     width: 12vh;
     margin-top: 1vh;
-    /*cursor: url(Assets/Actions/action_attack_32px.png) 16 16, pointer;*/
 }
 
 .cursor {
@@ -110,6 +109,7 @@ body{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    transition: 0.15s ease-in-out;
 }
 
 #character_frame {
@@ -164,26 +164,7 @@ body{
     border-radius: 2vh;
     box-shadow: inset 0vh 0vh .5vh #00000088;
     height: 100%;
-}
-
-.small_filler {
-    background: #FFF;
-    width: 9vh;
-    padding: 0;
-    margin-top: .5vh;
-}
-
-.small_filler > div {
-    padding: 0;
-    font-weight: 600;
-    height: 1vh;
-    box-shadow: none;
-}
-
-@media (max-aspect-ratio: 1/1) {
-    .small_filler {
-        width: 12vw;
-    }
+    transition: 0.15s ease-in-out;
 }
 
 .health_bar{
@@ -226,6 +207,12 @@ body{
     font-weight: 600;
     transition: 0.15s ease-in-out;
     cursor: pointer;
+}
+
+.command_button img {
+    height: 60%;
+    margin-right: 1vh;
+    filter: drop-shadow(0 0 .1vh #000000FF);
 }
 
 .command_button:hover {
@@ -287,4 +274,50 @@ body{
 
 .effect_icon {
     height: 100%;
+}
+
+#tutorial_popup {
+    position: absolute;
+    left: calc(50vw - 10vh);
+    top: calc(50vh - 10vh);
+    width: 20vh;
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    box-shadow: 0 0 1vh #000000DD;
+    border-radius: 2vh;
+    font-size: 2vh;
+    font-weight: 600;
+    padding: 2vh;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#tutorial_buttons {
+    display: flex;
+    justify-content: space-between;
+    height: 6vh;
+    width: 18vh;
+}
+
+#tutorial_buttons div {
+    display: flex;
+    box-shadow: 0 0 .5vh #000000AA;
+    border-radius: 1vh;
+    width: 8vh;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.15s ease-in-out;
+}
+
+#skip_tutorial_button {
+    background: #361d57;
+    color: #FFF;
+}
+
+#tutorial_buttons div:hover {
+    box-shadow: 0vh 0vh .5vh #000000DD;
+    transition: 0.15s ease-in-out;
 }

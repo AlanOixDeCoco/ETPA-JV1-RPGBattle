@@ -6,6 +6,7 @@ let bool_isBusy = false; // state of the message popup
 // #region FUNCTIONS
 // refreshes commands to the desired character
 function UpdateCommandsArea(character){
+    document.getElementById("character_frame").getElementsByTagName("img")[0].src = `Assets/Characters/${character[ID]}.png`;
     if(character[HP] > 0){
         document.getElementById("stats_container").getElementsByClassName("health_bar")[0].style.marginRight = `${100 - ((character[HP]/MAX_CHARACTERS_HEALTH) * 100)}%`; // changes the filling of the health bar
     }
@@ -23,6 +24,35 @@ function UpdateCommandsArea(character){
         document.getElementById("stats_container").getElementsByClassName("mana_bar")[0].style.boxShadow = "none";
     }
     document.getElementById("stats_container").getElementsByClassName("mana_bar")[0].innerHTML = `${character[MANA]}/${MAX_CHARACTERS_MANA}` // changes the mana bar text
+    
+    // reset every button
+    attackButtonElement = document.getElementById("attack_button");
+    defendButtonElement = document.getElementById("defend_button");
+    specialButtonElement = document.getElementById("special_button");
+    attackButtonElement.style.opacity = 1;
+    attackButtonElement.style.pointerEvents = "all";
+    defendButtonElement.style.opacity = 1;
+    defendButtonElement.style.pointerEvents = "all";
+    specialButtonElement.style.opacity = 1;
+    specialButtonElement.style.pointerEvents = "all";
+    // change the buttons text
+    attackButtonElement.innerHTML = `<img src="Assets/Actions/action_attack.png">\nAttaquer (-${character[DMG]}HP)`;
+    specialButtonElement.innerHTML = `<img src="Assets/Actions/${character[SPE][ACTION_SPRITE]}.png">\n${character[SPE][ACTION_NAME]} (-10MP)`;
+    // then apply necessary modifications
+    switch(character[LAST_ACTION]){
+        case ACTION_ATTACK:
+            attackButtonElement.style.opacity = 0.5;
+            attackButtonElement.style.pointerEvents = "none";
+            break;
+        case ACTION_DEFEND:
+            defendButtonElement.style.opacity = 0.5;
+            defendButtonElement.style.pointerEvents = "none";
+            break;
+        case character[SPE]:
+            specialButtonElement.style.opacity = 0.5;
+            specialButtonElement.style.pointerEvents = "none";
+            break;
+    }
 }
 
 // display a message in the dialog area for 'duration' seconds (5s by default) and calls 'fallback' function after displaying
@@ -99,5 +129,4 @@ function SetMouseCursor(id, sprite = null){
     if(sprite) element.style.cursor = `url(Assets/Actions/${sprite}_32px.png) 16 16, pointer`;
     else element.style.cursor = "default";
 }
-
 // #endregion

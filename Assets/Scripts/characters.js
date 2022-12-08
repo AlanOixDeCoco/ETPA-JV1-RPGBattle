@@ -42,7 +42,7 @@ let lst_characters = [
         MAX_CHARACTERS_DAMAGE / 2,  // 3: DMG (damage pts),
         [],                         // 4: list of active EFFECTS (poisoned, confused, ...), 
         MAX_CHARACTERS_MANA,        // 5: MANA,
-        ACTION_HEAL,                // 6: SPE (special ability),
+        ACTION_POISON,                // 6: SPE (special ability),
         INNIT_PROTECT_VALUE,        // 7: PROTECTED bool,
         null                        // 8: LAST ACTION performed
     ], 
@@ -52,7 +52,7 @@ let lst_characters = [
         MAX_CHARACTERS_DAMAGE / 2,  // 3: DMG (damage pts),
         [],                         // 4: list of active EFFECTS (poisoned, confused, ...), 
         MAX_CHARACTERS_MANA,        // 5: MANA,
-        ACTION_HEAL,                // 6: SPE (special ability),
+        ACTION_BOOST,                // 6: SPE (special ability),
         INNIT_PROTECT_VALUE,        // 7: PROTECTED bool,
         null                        // 8: LAST ACTION performed
     ], 
@@ -62,7 +62,7 @@ let lst_characters = [
         MAX_CHARACTERS_DAMAGE / 2,  // 3: DMG (damage pts),
         [],                         // 4: list of active EFFECTS (poisoned, confused, ...), 
         MAX_CHARACTERS_MANA,        // 5: MANA,
-        ACTION_HEAL,                // 6: SPE (special ability),
+        ACTION_CONFUSE,                // 6: SPE (special ability),
         INNIT_PROTECT_VALUE,        // 7: PROTECTED bool,
         null                        // 8: LAST ACTION performed
     ]
@@ -96,7 +96,7 @@ let _selectedCharacter = null;
 // Kill character / ennemy when called
 function KillCharacter(character){
     // replace character image with character dead one and change the mouse cursor when hovering
-    characterImage = document.getElementById(character[ID]).getElementsByTagName("img")[0];
+    characterImage = document.getElementById(character[ID]).getElementsByTagName("img")[1];
     characterImage.src = "Assets/Characters/character_dead.png";
     characterImage.style.opacity = 0.5;
     characterImage.style.pointerEvents = "none";
@@ -105,7 +105,7 @@ function KillCharacter(character){
 }
 function KillEnnemy(ennemy){
     // replace ennemy image with ennemy dead one and change the mouse cursor when hovering
-    ennemyImage = document.getElementById(ennemy[ID]).getElementsByTagName("img")[0];
+    ennemyImage = document.getElementById(ennemy[ID]).getElementsByTagName("img")[1];
     ennemyImage.src = "Assets/Ennemies/ennemy_dead.png";
     ennemyImage.style.cursor = "not-allowed";
     ShowMessage(`${ennemy[NAME]} est mort !<br>Il reste ${lst_ennemies.length - 1} ennemi(s) en vie !`);
@@ -117,6 +117,7 @@ function SelectCharacter(character){
     _selectedCharacter = character;
     cursorElement = document.getElementById(character[ID]).getElementsByClassName("cursor")[0];
     cursorElement.style.opacity = 1;
+    UpdateCommandsArea(character);
 }
 
 function UnselectCharacter(){

@@ -70,14 +70,29 @@
                 </div>
             </div>
             <div id="commands_container">
-                <div class="command_button" id="attack_button">Attack</div>
-                <div class="command_button" id="defend_button">Defend</div>
-                <div class="command_button" id="special_button">Special (-10MP)</div>
+                <div class="command_button" id="attack_button">
+                    <img src="Assets/Actions/action_attack.png">
+                    Attaquer
+                </div>
+                <div class="command_button" id="defend_button">
+                    <img src="Assets/Actions/action_defend.png">
+                    Défendre
+                </div>
+                <div class="command_button" id="special_button">
+                    <img src="Assets/Actions/action_heal.png">
+                    Spécial
+                </div>
             </div>
         </div>
         <div id="dialog_area"></div> <!-- Zone de messages avec le joueur (position absolute) -->
         <div id="stats_popup"></div>
-
+        <div id="tutorial_popup">
+            Afficher le tutoriel ?
+            <div id="tutorial_buttons">
+                <div id="play_tutorial_button">Oui</div>
+                <div id="skip_tutorial_button">Non</div>
+            </div>
+        </div>
     </div>
 
     <!-- Chargement des scripts js en fin de page = priorité au visuel -->
