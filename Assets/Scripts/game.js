@@ -46,4 +46,10 @@ ShowMessage("Joie de vivre, reposé, probablement pas un joueur LoL, en plus d'�
 ShowMessage("<b>GIGA CHAD</b>", 2);
 ShowMessage("Le boug est chadesque, une légende urbaine, son <b><i>GIGA STYLE</i></b> peut à lui seul déboussoler ses ennemis et les rendre giga naze.", 6, () => {UnselectCharacter();});
 
+// Tuto
+ShowMessage("Place aux <b>règles</b> !", 3);
+ShowMessage("Pour jouer, ", 3);
+
+SetMouseCursor("game_viewport", "action_attack");
+
 // #endregion

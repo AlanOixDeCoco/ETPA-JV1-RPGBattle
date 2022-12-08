@@ -92,4 +92,12 @@ function DeactivateCommands(){
     commandsElement.style.opacity = 0.5;
     commandsElement.style.pointerEvents = "none";
 }
+
+// Set mouse cursor image
+function SetMouseCursor(id, sprite = null){
+    element = document.getElementById(id);
+    if(sprite) element.style.cursor = `url(Assets/Actions/${sprite}_32px.png) 16 16, pointer`;
+    else element.style.cursor = "default";
+}
+
 // #endregion

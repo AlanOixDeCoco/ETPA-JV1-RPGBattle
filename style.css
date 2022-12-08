@@ -70,7 +70,7 @@ body{
 .character_img {
     width: 12vh;
     margin-top: 1vh;
-    cursor: url(Assets/Actions/action_attack_32px.png) 16 16, pointer;
+    /*cursor: url(Assets/Actions/action_attack_32px.png) 16 16, pointer;*/
 }
 
 .cursor {
@@ -110,10 +110,6 @@ body{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    /* WHEN INACTIVE apply these 2 properties
-    opacity: 0.5;
-    pointer-events: none;
-    */
 }
 
 #character_frame {
