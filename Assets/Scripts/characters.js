@@ -14,7 +14,7 @@ const LAST_ACTION = 8   // characters LAST ACTION index in arrays
 // Values constants : characters
 const MAX_CHARACTERS_HEALTH = 100 // max characters HP
 const MAX_CHARACTERS_MANA = 100 // max characters MANA
-const MAX_CHARACTERS_DAMAGE = 20 // maximum damage to deal to the ennemies
+const MAX_CHARACTERS_DAMAGE = 30 // maximum damage to deal to the ennemies
 const INNIT_PROTECT_VALUE = false // by default the player can receive full damage
 
 // Values constants : ennemies
@@ -89,7 +89,7 @@ let lst_ennemies = [
     ]
 ];
 
-let _selectedCharacter = null;
+let character_selectedCharacter = null;
 // #endregion
 
 // #region FUNCTIONS
@@ -112,17 +112,23 @@ function KillEnnemy(ennemy){
     lst_ennemies.splice(lst_ennemies.indexOf(ennemy), 1); // remove specified character from list
 }
 
-function SelectCharacter(character){
-    if(_selectedCharacter) UnselectCharacter();
-    _selectedCharacter = character;
-    cursorElement = document.getElementById(character[ID]).getElementsByClassName("cursor")[0];
+function SelectContext(context){
+    // unselect the current character
+    if(character_selectedCharacter) UnselectContext();
+    // select the new character
+    character_selectedCharacter = context;
+
+    cursorElement = document.getElementById(context[ID]).getElementsByClassName("cursor")[0];
     cursorElement.style.opacity = 1;
-    UpdateCommandsArea(character);
+    // do this only if we are selecting a character, not an ennemy
+    if(lst_characters.includes(context)) {
+        UpdateCommandsArea(context);
+    }
 }
 
-function UnselectCharacter(){
-    cursorElement = document.getElementById(_selectedCharacter[ID]).getElementsByClassName("cursor")[0];
+function UnselectContext(){
+    cursorElement = document.getElementById(character_selectedCharacter[ID]).getElementsByClassName("cursor")[0];
     cursorElement.style.opacity = 0;
-    _selectedCharacter = null;
+    character_selectedCharacter = null;
 }
 // #endregion

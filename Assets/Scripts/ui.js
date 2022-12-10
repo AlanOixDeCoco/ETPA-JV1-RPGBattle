@@ -37,8 +37,16 @@ function UpdateCommandsArea(character){
     specialButtonElement.style.pointerEvents = "all";
     // change the buttons text
     attackButtonElement.innerHTML = `<img src="Assets/Actions/action_attack.png">\nAttaquer (-${character[DMG]}HP)`;
-    specialButtonElement.innerHTML = `<img src="Assets/Actions/${character[SPE][ACTION_SPRITE]}.png">\n${character[SPE][ACTION_NAME]} (-10MP)`;
+    specialButtonElement.innerHTML = `<img src="Assets/Actions/${character[SPE][ACTION_SPRITE]}.png">\n${character[SPE][ACTION_NAME]} (-${ACTION_MANA_CONSUMPTION}MP)`;
     // then apply necessary modifications
+    if(character[MANA] < ACTION_MANA_CONSUMPTION){
+        specialButtonElement.style.opacity = 0.5;
+        specialButtonElement.style.pointerEvents = "none";
+    }
+    else {
+        specialButtonElement.style.opacity = 1;
+        specialButtonElement.style.pointerEvents = "all";
+    }
     switch(character[LAST_ACTION]){
         case ACTION_ATTACK:
             attackButtonElement.style.opacity = 0.5;
@@ -56,7 +64,7 @@ function UpdateCommandsArea(character){
 }
 
 // display a message in the dialog area for 'duration' seconds (5s by default) and calls 'fallback' function after displaying
-function ShowMessage(message, duration = 5, fallback = null){
+function ShowMessage(message, duration = 2, fallback = null){
     if(message){
         lst_MessagesQueue.push([() => {
             ShowDialogArea(message);

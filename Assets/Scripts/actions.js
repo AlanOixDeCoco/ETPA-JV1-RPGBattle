@@ -1,3 +1,6 @@
+const ACTION_MANA_CONSUMPTION = 20 // MANA consumed at each special action performed
+const ACTION_MANA_INCREMENT = 5 // MANA consumed at each special action performed
+
 // Actions data indexes constants
 const ACTION_NAME = 0       // action NAME value index in the action array
 const ACTION_SPRITE = 1     // action SPRITE, "sprite".png / "sprite"_32px.png
@@ -35,7 +38,8 @@ const ACTION_CONFUSE = [    // Confuse action
 ];
 
 // ATTACK : Attacks 'target' for 'damage' pts, sets 'context' = attacker last action and display the action description sentence
-function Attack(context, target, damage){
+function Attack(context, target){
+    let damage = context[DMG];
     // if the protected property exists
     if(target.length >= (PROTECTED-1)){
         if(target[PROTECTED]) { // if the target is protected
@@ -68,7 +72,8 @@ function Defend(context, target){
 }
 
 // HEAL: Adds 'amount' hp to the 'target', sets 'context' last action and display the action description sentence
-function Heal(context, target, amount){
+function Heal(context, target, amount = RandomInt(5, 15)){
+    character_selectedCharacter[MANA] -= ACTION_MANA_CONSUMPTION;
     // if the healing exeeds character's max HP
     if((target[HP] + amount) > MAX_CHARACTERS_HEALTH){
         amount = MAX_CHARACTERS_HEALTH - target[HP];
@@ -79,7 +84,8 @@ function Heal(context, target, amount){
 }
 
 // POISON: Poisons 'target' for 'duration' rounds, damaging it by 'damage' hp each round, sets 'context' last action and display the action description sentence
-function Poison(context, target, duration, damage){
+function Poison(context, target, duration = RandomInt(2, 4), damage = RandomInt(5, 10)){
+    character_selectedCharacter[MANA] -= ACTION_MANA_CONSUMPTION;
     // adds the poisonning function to the effects 
     AddEffect(Poisoned, target, ACTION_POISON[ACTION_SPRITE], damage, duration);
     ShowMessage(`${context[NAME]} a empoisonné ${target[NAME]} !<br>${target[NAME]} subira ${damage} pts de dégats pendant ${duration} rounds.`);
@@ -87,7 +93,8 @@ function Poison(context, target, duration, damage){
 }
 
 // BOOST: Increase 'target' damage by 'amount', sets 'context' last action and display the action description sentence
-function Boost(context, target, amount){
+function Boost(context, target, amount = RandomInt(2, 5)){
+    character_selectedCharacter[MANA] -= ACTION_MANA_CONSUMPTION;
     // if the boost exeeds character's max damage
     if((target[DMG] + amount) > MAX_CHARACTERS_DAMAGE){
         amount = MAX_CHARACTERS_DAMAGE - target[DMG];
@@ -98,7 +105,8 @@ function Boost(context, target, amount){
 }
 
 // CONFUSE: Reduces 'target' damage by 'amount' pts, and returns the action description sentence
-function Confuse(context, target, amount){
+function Confuse(context, target, amount = RandomInt(2, 5)){
+    character_selectedCharacter[MANA] -= ACTION_MANA_CONSUMPTION;
     if((target[DMG] - amount) < MIN_ENNEMIES_DAMAGE){
         amount = target[DMG] - MIN_ENNEMIES_DAMAGE;
     }

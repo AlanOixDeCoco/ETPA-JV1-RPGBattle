@@ -1,5 +1,8 @@
 // #region VARIABLES
-
+let bool_isAiming = false;
+let action_selectedAction = null;
+let target_availableTargets = null;
+let bool_hasAttacked = false;
 // #endregion
 
 // PROGRAM STARTS HERE
@@ -22,15 +25,15 @@ function Introduction(){
     ShowMessage("Bienvenue dans le monde des <b>émojis</b> !", 2);
     ShowMessage("<b>Micrasuft</b> a laissé s'échapper sa horde de vilains et il est de votre devoir de les arrêter !", 3);
     ShowMessage("Exploitez la bravoure et les compétences de votre équipe pour vaincre les créatures de Micrasuft.", 3);
-    ShowMessage("Laissez-moi vous les présenter...", 2, () => {SelectCharacter(lst_characters[0]);});
+    ShowMessage("Laissez-moi vous les présenter...", 2, () => {SelectContext(lst_characters[0]);});
     ShowMessage("<b>GIRO SMILEUR</b>", 2);
-    ShowMessage("Le plus grand smileur que cette terre ai porté, il peut exploiter son <b><i>GIRO SMILE</i></b> pour soigner ses alliés.", 4, () => {SelectCharacter(lst_characters[1]);});
+    ShowMessage("Le plus grand smileur que cette terre ai porté, il peut exploiter son <b><i>GIRO SMILE</i></b> pour soigner ses alliés.", 4, () => {SelectContext(lst_characters[1]);});
     ShowMessage("<b>TURBO INCOGNITO</b>", 2);
-    ShowMessage("Turbo chelou, il peut <b><i>EMPOISONNER</i></b> ses ennemis à l'aide de sa turbo potion, ce mec est très douteux...", 4, () => {SelectCharacter(lst_characters[2]);});
+    ShowMessage("Turbo chelou, il peut <b><i>EMPOISONNER</i></b> ses ennemis à l'aide de sa turbo potion, ce mec est très douteux...", 4, () => {SelectContext(lst_characters[2]);});
     ShowMessage("<b>ULTRA COWBOY</b>", 2);
-    ShowMessage("Joie de vivre, reposé, probablement pas un joueur LoL, en plus d'être l'ami des bêtes il a le pouvoir de <b><i>GIGA BOOSTER</i></b> ses alliés.", 6, () => {SelectCharacter(lst_characters[3]);});
+    ShowMessage("Heureux de vivre, reposé, probablement pas un joueur LoL, en plus d'être l'ami des bêtes il a le pouvoir de <b><i>GIGA BOOSTER</i></b> ses alliés.", 6, () => {SelectContext(lst_characters[3]);});
     ShowMessage("<b>GIGA CHAD</b>", 2);
-    ShowMessage("Le boug est chadesque, une légende urbaine, son <b><i>GIGA STYLE</i></b> peut à lui seul déboussoler ses ennemis et les rendre giga naze.", 6, () => {UnselectCharacter();});
+    ShowMessage("Le boug est chadesque, une légende urbaine, son <b><i>GIGA STYLE</i></b> peut à lui seul déboussoler ses ennemis et les rendre giga naze.", 6, () => {UnselectContext();});
 
     // Tuto
     ShowMessage("Place aux <b>règles</b> !", 3);
@@ -50,7 +53,7 @@ function Introduction(){
 
 function Game(){
     // #region INITIALIZATION
-    // add mouseover events to display the stats when cursor is over the characters ...
+    // add mouseover listeners to display the stats when cursor is over the ennemies ...
     lst_ennemies.forEach(ennemy => {
         let ennemyElement = document.getElementById(ennemy[0]);
         ennemyElement.getElementsByClassName("ennemy_img")[0].addEventListener("mousemove", function(event) {
@@ -60,7 +63,7 @@ function Game(){
             HideHealthTooltip();
         })
     });
-    // ... same for the ennemies
+    // ... same for the characters
     lst_characters.forEach(character => {
         let characterElement = document.getElementById(character[0])
         characterElement.getElementsByClassName("character_img")[0].addEventListener("mousemove", function(event) {
@@ -70,17 +73,132 @@ function Game(){
             HideHealthTooltip();
         })
     });
+
+    // add onclick listeners to trigger the ennemies buttons...
+    lst_ennemies.forEach(ennemy => {
+        let ennemyElement = document.getElementById(ennemy[0]);
+        ennemyElement.getElementsByClassName("ennemy_img")[0].onclick = () => ClickOnTarget(ennemy);
+    });
+    // ... same for the characters
+    lst_characters.forEach(character => {
+        let characterElement = document.getElementById(character[0]);
+        characterElement.getElementsByClassName("character_img")[0].onclick = () => ClickOnTarget(character);
+    });
+
+    // add onclick events to the action buttons
+    attackButtonElement = document.getElementById("attack_button");
+    defendButtonElement = document.getElementById("defend_button");
+    specialButtonElement = document.getElementById("special_button");
+
+    attackButtonElement.onclick = () => {
+        Aim(ACTION_ATTACK, lst_ennemies);
+    };
+    defendButtonElement.onclick = () => {
+        Aim(ACTION_DEFEND, lst_characters);
+    };
+    specialButtonElement.onclick = () => {
+        switch(character_selectedCharacter[SPE]){
+            case ACTION_HEAL:
+            case ACTION_BOOST:
+                Aim(character_selectedCharacter[SPE], lst_characters);
+                break;
+            case ACTION_POISON:
+            case ACTION_CONFUSE:
+                Aim(character_selectedCharacter[SPE], lst_ennemies);
+                break;
+        }
+    };
     // #endregion
     
     // Player begins
-    PlayerTurn();
+    ShowMessage("<b>C'est à vous !</b>", 2, PlayerTurn);
 }
 
 // This initializes the player turn
 function PlayerTurn(){
     // Select the first available character
-    SelectCharacter(lst_characters[0]);
+    ShowMessage(`Au tour de ${lst_characters[0][NAME]}`, 2, () => {
+        SelectContext(lst_characters[0]);
+    });
 
     // Then re-activate the player commands
     ActivateCommands();
+}
+
+function EnnemiesTurn(){
+    // First apply active effects
+    lst_ennemies.forEach(ennemy => {
+        if(ennemy[EFFECTS].length > 0){
+            for(effectIndex = 0; effectIndex < ennemy[EFFECTS].length; effectIndex++){
+                TakeEffect(ennemy, effectIndex);
+            }
+        }
+    });
+
+    // then for each living ennemy
+    lst_ennemies.forEach(ennemy => {
+        AttackRandomCharacter(ennemy);
+    });
+    ShowMessage("<b>C'est à vous !</b>", 2, PlayerTurn);
+}
+
+// context ennemy attacks random living character
+function AttackRandomCharacter(context){
+    ACTION_ATTACK[ACTION_FUNCTION](context, lst_characters[RandomInt(0, lst_characters.length)]);
+}
+
+// Change the cursor accordingly and define a selection set of characters/ennemies
+function Aim(action, availableTargets){
+    if(!bool_hasAttacked){
+        bool_isAiming = true;
+        action_selectedAction = action;
+        target_availableTargets = availableTargets;
+        lst_characters.concat(lst_ennemies).forEach(allTargets => {
+            SetMouseCursor(`${allTargets[ID]}`, "action_prohibited");
+        });
+        target_availableTargets.forEach(availableTarget => {
+            SetMouseCursor(`${availableTarget[ID]}`, action[ACTION_SPRITE]);
+        });
+    }
+}
+
+// called when clicking on a character or an ennemy
+function ClickOnTarget(target){
+    console.log(`Click on ${target[NAME]}`);
+    if(bool_isAiming && target_availableTargets.includes(target)){
+        PerformAction(target);
+    }
+}
+
+// perform the action and check if we need to switch character or let the ennmies play
+function PerformAction(target){
+    // perform selected action using parameters (context & target)
+    action_selectedAction[ACTION_FUNCTION](character_selectedCharacter, target);
+    character_selectedCharacter[MANA] += ACTION_MANA_INCREMENT; // add mana to the character amount
+    if(character_selectedCharacter[MANA] > 100) character_selectedCharacter[MANA] = 100;
+    // reset cursor
+    lst_characters.concat(lst_ennemies).forEach(allTargets => {
+        SetMouseCursor(`${allTargets[ID]}`);
+    });
+    bool_hasAttacked = true;
+    bool_isAiming = false; // reset aiming state
+    action_selectedAction = null; // reset selected action
+    target_availableTargets = null; // reset available targets
+
+    let selectedCharacterIndex = lst_characters.indexOf(character_selectedCharacter);
+    if((selectedCharacterIndex + 1) >= lst_characters.length){
+        // First deactivate the player commands && unselect last character
+        DeactivateCommands();
+        UnselectContext();
+        // Ennemies turn
+        ShowMessage("<b>Au tour des ennemis !</b>", 2, EnnemiesTurn);
+        bool_hasAttacked = false;
+    }
+    else {
+        // select next character
+        ShowMessage(`Au tour de ${lst_characters[selectedCharacterIndex + 1][NAME]}`, 2, () => {
+            SelectContext(lst_characters[selectedCharacterIndex + 1]);
+            bool_hasAttacked = false;
+        });
+    }
 }
