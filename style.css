@@ -80,13 +80,25 @@ body{
 
 @media (max-aspect-ratio: 1/1) {
     .ennemy_container {
-        margin: 0 2vw;
+        margin: 2vw;
     }
     .ennemy_img {
-        width: 20vw;
+        width: 16vw;
     }
     .character_container {
-        margin: 0 2vw;
+        margin: 2vw;
+    }
+    .character_img {
+        width: 12vw;
+    }
+    .cursor {
+        width: 6vw;
+    }
+}
+
+@media (max-aspect-ratio: 2/3) {
+    .ennemy_img {
+        width: 20vw;
     }
     .character_img {
         width: 16vw;
@@ -98,9 +110,6 @@ body{
 /* ZONE COMMANDES ET INFOS */
 
 #commands_area {
-    bottom: 0;
-    left: 0;
-    right: 0;
     background: #FFF;
     box-shadow: 0vh 0vh 2vh #000000AA;
     margin: 2vh;
@@ -254,8 +263,15 @@ body{
 @media (max-aspect-ratio: 1/1) {
     #dialog_area {
         justify-content: flex-start;
-        font-size: 4vw;
+        font-size: 3vw;
    }
+}
+
+@media (max-aspect-ratio: 2/3) {
+    #dialog_area {
+        justify-content: flex-start;
+        font-size: 4vw;
+    }
 }
 
 #stats_popup {
@@ -270,6 +286,18 @@ body{
 .effects_container {
     display: flex;
     height: 3vh;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    .effects_container {
+        height: 3vw;
+    }
+}
+
+@media (max-aspect-ratio: 2/3) {
+    .effects_container {
+        height: 5vw;
+    }
 }
 
 .effect_icon {

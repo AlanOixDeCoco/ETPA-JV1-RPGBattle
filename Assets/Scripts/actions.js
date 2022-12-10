@@ -1,5 +1,5 @@
-const ACTION_MANA_CONSUMPTION = 20 // MANA consumed at each special action performed
-const ACTION_MANA_INCREMENT = 5 // MANA consumed at each special action performed
+const ACTION_MANA_CONSUMPTION = 40 // MANA consumed at each special action performed
+const ACTION_MANA_INCREMENT = 10 // MANA consumed at each special action performed
 
 // Actions data indexes constants
 const ACTION_NAME = 0       // action NAME value index in the action array
@@ -43,7 +43,7 @@ function Attack(context, target){
     // if the protected property exists
     if(target.length >= (PROTECTED-1)){
         if(target[PROTECTED]) { // if the target is protected
-            target[PROTECTED] = false; // just remove protection
+            RemoveShield(target); // just remove protection
             ShowMessage(`${context[NAME]} a brisé la protection de ${target[NAME]} !<br>Pas cool...`);
         }
         else {
@@ -66,13 +66,14 @@ function Attack(context, target){
 
 // DEFEND: Protect the target for one attack, sets 'context' last action and display the action description sentence
 function Defend(context, target){
-    target[PROTECTED] = true;
+    AddShield(target);
     ShowMessage(`${context[NAME]} a protégé ${target[NAME]} de sa prochaine attaque !<br>C'est très urbain de sa part.`);
     context[LAST_ACTION] = ACTION_DEFEND;
 }
 
 // HEAL: Adds 'amount' hp to the 'target', sets 'context' last action and display the action description sentence
-function Heal(context, target, amount = RandomInt(5, 15)){
+function Heal(context, target){
+    amount = RandomInt(10, context[DMG]); // heal power depends on player attack (can be boosted)
     character_selectedCharacter[MANA] -= ACTION_MANA_CONSUMPTION;
     // if the healing exeeds character's max HP
     if((target[HP] + amount) > MAX_CHARACTERS_HEALTH){
@@ -84,7 +85,9 @@ function Heal(context, target, amount = RandomInt(5, 15)){
 }
 
 // POISON: Poisons 'target' for 'duration' rounds, damaging it by 'damage' hp each round, sets 'context' last action and display the action description sentence
-function Poison(context, target, duration = RandomInt(2, 4), damage = RandomInt(5, 10)){
+function Poison(context, target){
+    duration = RandomInt(2, 5)
+    damage = RandomInt(5, context[DMG]); // poison effect power depends on player attack (can be boosted)
     character_selectedCharacter[MANA] -= ACTION_MANA_CONSUMPTION;
     // adds the poisonning function to the effects 
     AddEffect(Poisoned, target, ACTION_POISON[ACTION_SPRITE], damage, duration);
@@ -93,7 +96,8 @@ function Poison(context, target, duration = RandomInt(2, 4), damage = RandomInt(
 }
 
 // BOOST: Increase 'target' damage by 'amount', sets 'context' last action and display the action description sentence
-function Boost(context, target, amount = RandomInt(2, 5)){
+function Boost(context, target){
+    amount = RandomInt(5, parseInt(context[DMG]/2)); // boost power depends on player attack (can be boosted)
     character_selectedCharacter[MANA] -= ACTION_MANA_CONSUMPTION;
     // if the boost exeeds character's max damage
     if((target[DMG] + amount) > MAX_CHARACTERS_DAMAGE){
@@ -105,7 +109,8 @@ function Boost(context, target, amount = RandomInt(2, 5)){
 }
 
 // CONFUSE: Reduces 'target' damage by 'amount' pts, and returns the action description sentence
-function Confuse(context, target, amount = RandomInt(2, 5)){
+function Confuse(context, target){
+    amount = RandomInt(5, parseInt(context[DMG]/2)); // confuse power depends on player attack (can be boosted)
     character_selectedCharacter[MANA] -= ACTION_MANA_CONSUMPTION;
     if((target[DMG] - amount) < MIN_ENNEMIES_DAMAGE){
         amount = target[DMG] - MIN_ENNEMIES_DAMAGE;
@@ -116,7 +121,6 @@ function Confuse(context, target, amount = RandomInt(2, 5)){
 }
 
 // #region Effects
-
 function AddEffect(effect, target, icon, amount, duration){
     // pushes the effect to the target[effects] array
     target[EFFECTS].push([effect, amount, duration]);
@@ -147,5 +151,26 @@ function Poisoned(context, damage){
     }
     context[HP] -= damage;
     ShowMessage(`${context[NAME]} a subit ${damage} pts de dégat d'empoisonnement !<br>Il lui reste ${context[HP]} PV.`);
+}
+// #endregion
+
+// #region Shield effect
+function AddShield(context){
+    // don't add a shield if already protected
+    if(!context[PROTECTED]){
+        context[PROTECTED] = true; // set the protected state
+        // then add the icon to the character
+        let shieldImg = document.createElement("img");
+        shieldImg.setAttribute("class", "effect_icon");
+        shieldImg.setAttribute("src", `Assets/Actions/action_defend.png`);
+        document.getElementById(context[ID]).getElementsByClassName("effects_container")[0].appendChild(shieldImg);
+    }
+}
+
+function RemoveShield(context){
+    context[PROTECTED] = false; // set the protected state
+    // then remove the icon from the character
+    let shieldImg = document.getElementById(context[ID]).getElementsByClassName("effects_container")[0].children[0];
+    shieldImg.remove();
 }
 // #endregion

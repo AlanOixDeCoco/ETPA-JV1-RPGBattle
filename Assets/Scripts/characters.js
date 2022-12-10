@@ -15,11 +15,13 @@ const LAST_ACTION = 8   // characters LAST ACTION index in arrays
 const MAX_CHARACTERS_HEALTH = 100 // max characters HP
 const MAX_CHARACTERS_MANA = 100 // max characters MANA
 const MAX_CHARACTERS_DAMAGE = 30 // maximum damage to deal to the ennemies
+const INNIT_CHARACTERS_DAMAGE = 10 // maximum damage to deal to the ennemies
 const INNIT_PROTECT_VALUE = false // by default the player can receive full damage
 
 // Values constants : ennemies
-const MAX_ENNEMIES_HEALTH = 200 // max ennemies HP
+const MAX_ENNEMIES_HEALTH = 150 // max ennemies HP
 const MIN_ENNEMIES_DAMAGE = 10 // minimum damage to deal to the characters
+const INNIT_ENNEMIES_DAMAGE = 20 // minimum damage to deal to the characters
 // #endregion
 
 // #region VARIABLES
@@ -29,7 +31,7 @@ let lst_characters = [
     [   "character_1",              // 0: html ID,
         "Giro Smileur",             // 1: NAME,
         MAX_CHARACTERS_HEALTH,      // 2: HP (health pts),
-        MAX_CHARACTERS_DAMAGE / 2,  // 3: DMG (damage pts),
+        INNIT_CHARACTERS_DAMAGE,    // 3: DMG (damage pts),
         [],                         // 4: list of active EFFECTS (poisoned, confused, ...), 
         MAX_CHARACTERS_MANA,        // 5: MANA,
         ACTION_HEAL,                // 6: SPE (special ability),
@@ -39,7 +41,7 @@ let lst_characters = [
     [   "character_2",              // 0: html ID,
         "Turbo Incognito",          // 1: NAME,
         MAX_CHARACTERS_HEALTH,      // 2: HP (health pts),
-        MAX_CHARACTERS_DAMAGE / 2,  // 3: DMG (damage pts),
+        INNIT_CHARACTERS_DAMAGE,    // 3: DMG (damage pts),
         [],                         // 4: list of active EFFECTS (poisoned, confused, ...), 
         MAX_CHARACTERS_MANA,        // 5: MANA,
         ACTION_POISON,                // 6: SPE (special ability),
@@ -49,7 +51,7 @@ let lst_characters = [
     [   "character_3",              // 0: html ID,
         "Ultra Cowboy",             // 1: NAME,
         MAX_CHARACTERS_HEALTH,      // 2: HP (health pts),
-        MAX_CHARACTERS_DAMAGE / 2,  // 3: DMG (damage pts),
+        INNIT_CHARACTERS_DAMAGE,    // 3: DMG (damage pts),
         [],                         // 4: list of active EFFECTS (poisoned, confused, ...), 
         MAX_CHARACTERS_MANA,        // 5: MANA,
         ACTION_BOOST,                // 6: SPE (special ability),
@@ -59,7 +61,7 @@ let lst_characters = [
     [   "character_4",              // 0: html ID,
         "Giga Chad",                // 1: NAME,
         MAX_CHARACTERS_HEALTH,      // 2: HP (health pts),
-        MAX_CHARACTERS_DAMAGE / 2,  // 3: DMG (damage pts),
+        INNIT_CHARACTERS_DAMAGE,    // 3: DMG (damage pts),
         [],                         // 4: list of active EFFECTS (poisoned, confused, ...), 
         MAX_CHARACTERS_MANA,        // 5: MANA,
         ACTION_CONFUSE,                // 6: SPE (special ability),
@@ -72,19 +74,19 @@ let lst_ennemies = [
     [   "ennemy_1",                 // 0: html ID,
         "Clown",                    // 1: NAME,
         MAX_ENNEMIES_HEALTH,        // 2: HP (health pts),
-        MIN_ENNEMIES_DAMAGE * 2,    // 3: DMG (damage pts),
+        INNIT_ENNEMIES_DAMAGE,      // 3: DMG (damage pts),
         []                          // 4: list of active EFFECTS (poisoned, confused, ...)
     ], 
     [   "ennemy_2",                 // 0: html ID,
         "Ogre",                     // 1: NAME,
         MAX_ENNEMIES_HEALTH,        // 2: HP (health pts),
-        MIN_ENNEMIES_DAMAGE * 2,    // 3: DMG (damage pts),
+        INNIT_ENNEMIES_DAMAGE,      // 3: DMG (damage pts),
         []                          // 4: list of active EFFECTS (poisoned, confused, ...)
     ], 
     [   "ennemy_3",                 // 0: html ID,
         "Goblin",                   // 1: NAME,
         MAX_ENNEMIES_HEALTH,        // 2: HP (health pts),
-        MIN_ENNEMIES_DAMAGE * 2,    // 3: DMG (damage pts),
+        INNIT_ENNEMIES_DAMAGE,      // 3: DMG (damage pts),
         []                          // 4: list of active EFFECTS (poisoned, confused, ...)
     ]
 ];
@@ -109,6 +111,11 @@ function KillEnnemy(ennemy){
     ennemyImage.src = "Assets/Ennemies/ennemy_dead.png";
     ennemyImage.style.cursor = "not-allowed";
     ShowMessage(`${ennemy[NAME]} est mort !<br>Il reste ${lst_ennemies.length - 1} ennemi(s) en vie !`);
+    if(ennemy[EFFECTS].length > 0){
+        ennemy[EFFECTS].forEach(effect => {
+            RemoveEffect(ennemy, ennemy[EFFECTS].indexOf(effect));
+        });
+    }
     lst_ennemies.splice(lst_ennemies.indexOf(ennemy), 1); // remove specified character from list
 }
 

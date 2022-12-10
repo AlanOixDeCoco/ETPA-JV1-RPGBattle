@@ -137,6 +137,7 @@ function EnnemiesTurn(){
         if(ennemy[EFFECTS].length > 0){
             for(effectIndex = 0; effectIndex < ennemy[EFFECTS].length; effectIndex++){
                 TakeEffect(ennemy, effectIndex);
+                CheckEnnemiesHealth();
             }
         }
     });
@@ -156,10 +157,11 @@ function AttackRandomCharacter(context){
 
 // Change the cursor accordingly and define a selection set of characters/ennemies
 function Aim(action, availableTargets){
-    if(!bool_hasAttacked){
-        bool_isAiming = true;
-        action_selectedAction = action;
-        target_availableTargets = availableTargets;
+    if((!bool_hasAttacked) && (lst_MessagesQueue.length == 0)){ // we can attack once per turn
+        bool_isAiming = true; // we set the aiming state
+        action_selectedAction = action; // with the selected action
+        target_availableTargets = availableTargets; // aiming the available targets
+        // Changing the cursor accordingly
         lst_characters.concat(lst_ennemies).forEach(allTargets => {
             SetMouseCursor(`${allTargets[ID]}`, "action_prohibited");
         });
@@ -173,7 +175,7 @@ function Aim(action, availableTargets){
 function ClickOnTarget(target){
     console.log(`Click on ${target[NAME]}`);
     if(bool_isAiming && target_availableTargets.includes(target)){
-        PerformAction(target);
+        PerformAction(target); // Perform the current action on the target if it can be targeted
     }
 }
 
@@ -192,6 +194,7 @@ function PerformAction(target){
     action_selectedAction = null; // reset selected action
     target_availableTargets = null; // reset available targets
 
+    // Check for ennemies HP
     CheckEnnemiesHealth();
 
     let selectedCharacterIndex = lst_characters.indexOf(character_selectedCharacter);
