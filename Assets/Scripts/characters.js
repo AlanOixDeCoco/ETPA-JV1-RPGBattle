@@ -107,7 +107,7 @@ function KillCharacter(character){
 }
 function KillEnnemy(ennemy){
     // replace ennemy image with ennemy dead one and change the mouse cursor when hovering
-    ennemyImage = document.getElementById(ennemy[ID]).getElementsByTagName("img")[1];
+    ennemyImage = document.getElementById(ennemy[ID]).getElementsByTagName("img")[0];
     ennemyImage.src = "Assets/Ennemies/ennemy_dead.png";
     ennemyImage.style.cursor = "not-allowed";
     ShowMessage(`${ennemy[NAME]} est mort !<br>Il reste ${lst_ennemies.length - 1} ennemi(s) en vie !`);
