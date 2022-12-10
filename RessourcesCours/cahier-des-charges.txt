@@ -1,0 +1,32 @@
+FONCTIONNALITES (/16)
+
+1 (/2) - Personnages et monstres qui attaquent
+         Dialogue explique à chaque action ce qu'il se passe
+         Animation
+
+2 (/2) - 4 personnages, jouables à la suite dans une même phase
+
+3 (/2) - 3 ennemis, attaquent au hasard dans une même phase
+
+4 (/2) - Points de vie / mana affichés à l'écran
+         Quand plus de vie -> personnage meurt, ne fait plus rien
+         Quand plus de personnages -> partie perdue
+
+5 (/2) - HP des monstres s'affichent dans une infobulle - ok
+         Quand plus de vie -> meurt, ne fait plus rien
+         Quand plus de monstres -> partie gagnée
+
+6 (/2) - Un personnage attaque à la fois
+         Mis en valeur et menu d'actions
+
+7 (/2) - 3 différentes actions : - attaquer
+                                 - défendre
+                                 - spéciale par perso (need mana)
+
+8 (/2) - On ne peut pas faire la même action à la suite
+         Action indisponible mise en valeur (ex: grisée)
+
+
+QUALITE CODE (/2)
+
+PERTINENCE CODE (/2)

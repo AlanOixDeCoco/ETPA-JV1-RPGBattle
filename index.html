@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="Assets/Ennemies/ennemy_dead.png">
     <title>RPG Battle</title>
 </head>
 <body>
@@ -12,50 +13,42 @@
         <div id="combat_area"> <!-- Zone de combat + sélection cible -->
             <div id="ennemies_container">
                 <div class="ennemy_container" id="ennemy_1">
-                    <img class="cursor" src="Assets/cursor_down.png">
                     <img class="ennemy_img" src="Assets/Ennemies/ennemy_1.png">
+                    <div class="effects_container"></div>
                 </div>
                 <div class="ennemy_container" id="ennemy_2">
-                    <img class="cursor" src="Assets/cursor_down.png">
                     <img class="ennemy_img" src="Assets/Ennemies/ennemy_2.png">
+                    <div class="effects_container"></div>
                 </div>
                 <div class="ennemy_container" id="ennemy_3">
-                    <img class="cursor" src="Assets/cursor_down.png">
                     <img class="ennemy_img" src="Assets/Ennemies/ennemy_3.png">
+                    <div class="effects_container"></div>
                 </div>
             </div>
             <div id="characters_container">
                 <div class="character_container" id="character_1">
                     <img class="cursor" src="Assets/cursor_down.png">
                     <img class="character_img" src="Assets/Characters/character_1.png">
-                    <div class="filler small_filler">
-                        <div class="health_bar"></div>
-                    </div>
+                    <div class="effects_container"></div>
                 </div>
                 <div class="character_container" id="character_2">
                     <img class="cursor" src="Assets/cursor_down.png">
                     <img class="character_img" src="Assets/Characters/character_2.png">
-                    <div class="filler small_filler">
-                        <div class="health_bar"></div>
-                    </div>
+                    <div class="effects_container"></div>
                 </div>
                 <div class="character_container" id="character_3">
                     <img class="cursor" src="Assets/cursor_down.png">
                     <img class="character_img" src="Assets/Characters/character_3.png">
-                    <div class="filler small_filler">
-                        <div class="health_bar"></div>
-                    </div>
+                    <div class="effects_container"></div>
                 </div>
                 <div class="character_container" id="character_4">
                     <img class="cursor" src="Assets/cursor_down.png">
                     <img class="character_img" src="Assets/Characters/character_4.png">
-                    <div class="filler small_filler">
-                        <div class="health_bar"></div>
-                    </div>
+                    <div class="effects_container"></div>
                 </div>
             </div>
         </div>
-        <div id="command_area"> <!-- Zone de commandes et d'informations personnages -->
+        <div id="commands_area"> <!-- Zone de commandes et d'informations personnages -->
             <div id="character_frame">
                 <img src="Assets/Characters/character_1.png">
             </div>
@@ -74,17 +67,42 @@
                 </div>
             </div>
             <div id="commands_container">
-                <div class="command_button" id="attack_button">Attack</div>
-                <div class="command_button" id="defend_button">Defend</div>
-                <div class="command_button" id="special_button">Special (-10MP)</div>
+                <div class="command_button" id="attack_button">
+                    <img src="Assets/Actions/action_attack.png">
+                    Attaquer
+                </div>
+                <div class="command_button" id="defend_button">
+                    <img src="Assets/Actions/action_defend.png">
+                    Défendre
+                </div>
+                <div class="command_button" id="special_button">
+                    <img src="Assets/Actions/action_heal.png">
+                    Spécial
+                </div>
             </div>
         </div>
-        <div id="dialog_area"> <!-- Zone de messages avec le joueur (position absolute) -->
-
+        <div id="dialog_area"></div> <!-- Zone de messages avec le joueur (position absolute) -->
+        <div id="stats_popup"></div>
+    </div>
+    <div id="tutorial_popup">
+        Afficher le tutoriel ?
+        <div id="tutorial_buttons">
+            <div id="play_tutorial_button">Oui</div>
+            <div id="skip_tutorial_button">Non</div>
         </div>
     </div>
+    <div id="game_end_screen">
+            <div id="game_end_box">
+                <div id="game_end_text"><b>Gagné !</b></div>
+                <div id="play_again_button">Rejouer</div>
+            </div>
+        </div>
 
     <!-- Chargement des scripts js en fin de page = priorité au visuel -->
-    <script src="source.js"></script>
+    <script src="Assets/Scripts/toolbox.js"></script>
+    <script src="Assets/Scripts/ui.js"></script>
+    <script src="Assets/Scripts/actions.js"></script>
+    <script src="Assets/Scripts/characters.js"></script>
+    <script src="Assets/Scripts/game.js"></script>
 </body>
 </html>

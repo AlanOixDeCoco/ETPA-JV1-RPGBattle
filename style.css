@@ -4,6 +4,7 @@
 html {
     width: 100%;
     height: 100%;
+    font-family: Rubik, Helvetica, sans-serif;
 }
 
 body{
@@ -33,12 +34,13 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 #ennemies_container {
     display: flex;
     flex-direction: row;
+    margin-bottom: 5vh;
 }
 
 .ennemy_container {
@@ -71,20 +73,32 @@ body{
 }
 
 .cursor {
-    width: 6vh;
-    visibility: hidden;
-    filter: drop-shadow(0 0 .5vh black)
+    width: 8vh;
+    opacity: 0;
+    transition: 0.3s ease-in-out;
 }
 
 @media (max-aspect-ratio: 1/1) {
     .ennemy_container {
-        margin: 0 2vw;
+        margin: 2vw;
     }
     .ennemy_img {
-        width: 20vw;
+        width: 16vw;
     }
     .character_container {
-        margin: 0 2vw;
+        margin: 2vw;
+    }
+    .character_img {
+        width: 12vw;
+    }
+    .cursor {
+        width: 6vw;
+    }
+}
+
+@media (max-aspect-ratio: 2/3) {
+    .ennemy_img {
+        width: 20vw;
     }
     .character_img {
         width: 16vw;
@@ -93,28 +107,18 @@ body{
         width: 8vw;
     }
 }
-
-.ennemy_img:hover{
-    cursor:not-allowed;
-}
-.character_img:hover{
-    cursor: url(Assets/Capacities/capacity_attack_32px.png) 16 16, pointer;
-}
-
 /* ZONE COMMANDES ET INFOS */
 
-#command_area {
-    bottom: 0;
-    left: 0;
-    right: 0;
+#commands_area {
     background: #FFF;
-    box-shadow: 0vh 0vh 2vh #00000088;
+    box-shadow: 0vh 0vh 2vh #000000AA;
     margin: 2vh;
     padding: 2vh;
     border-radius: 3vh;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    transition: 0.15s ease-in-out;
 }
 
 #character_frame {
@@ -132,7 +136,7 @@ body{
 
 #character_frame img{
     height: 100%;
-    filter: drop-shadow(0 0 .5vh black)
+    filter: drop-shadow(0 0 .5vh black);
 }
 
 #stats_container {
@@ -147,7 +151,6 @@ body{
 #stats_container p {
     font-size: 2.5vh;
     margin: 1vh 0;
-    font-family: Rubik, Helvetica, sans-serif;
     font-weight: 400;
 }
 
@@ -164,33 +167,13 @@ body{
     align-items: center;
     color: #FFF;
     text-shadow: 0vh 0vh .5vh #000000FF;
-    font-family: Rubik, Helvetica, sans-serif;
     font-weight: 600;
     font-size: 2vh;
     padding-left: 1vh;
     border-radius: 2vh;
     box-shadow: inset 0vh 0vh .5vh #00000088;
     height: 100%;
-}
-
-.small_filler {
-    background: #FFF;
-    width: 9vh;
-    padding: 0;
-    margin-top: .5vh;
-}
-
-.small_filler > div {
-    padding: 0;
-    font-weight: 600;
-    height: 1vh;
-    box-shadow: none;
-}
-
-@media (max-aspect-ratio: 1/1) {
-    .small_filler {
-        width: 12vw;
-    }
+    transition: 0.15s ease-in-out;
 }
 
 .health_bar{
@@ -230,15 +213,20 @@ body{
     width: 100%;
     height: 25%;
     font-size: 2.5vh;
-    font-family:Rubik, Helvetica, sans-serif;
     font-weight: 600;
     transition: 0.15s ease-in-out;
+    cursor: pointer;
+}
+
+.command_button img {
+    height: 60%;
+    margin-right: 1vh;
+    filter: drop-shadow(0 0 .1vh #000000FF);
 }
 
 .command_button:hover {
     box-shadow: 0vh 0vh .5vh #000000DD;
     transition: 0.15s ease-in-out;
-    cursor: pointer;
 }
 
 .command_button:active {
@@ -254,4 +242,154 @@ body{
 }
 #special_button {
     background: #f4ae2c;
+}
+
+#dialog_area {
+    position: absolute;
+    top: -10vh;
+    left: 2vh;
+    right: 2vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #FFFFFFAA;
+    box-shadow: 0 0 1vh #00000088;
+    border-radius: 2vh;
+    font-size: 2.5vh;
+    padding: 1vh 2vh;
+    transition: 0.5s ease-in-out;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    #dialog_area {
+        justify-content: flex-start;
+        font-size: 3vw;
+   }
+}
+
+@media (max-aspect-ratio: 2/3) {
+    #dialog_area {
+        justify-content: flex-start;
+        font-size: 4vw;
+    }
+}
+
+#stats_popup {
+    position: absolute;
+    background: #FFFFFFAA;
+    padding: 1vh;
+    border-radius: 1vh;
+    visibility: hidden;
+    font-size: 2vh;
+}
+
+.effects_container {
+    display: flex;
+    height: 3vh;
+}
+
+@media (max-aspect-ratio: 1/1) {
+    .effects_container {
+        height: 3vw;
+    }
+}
+
+@media (max-aspect-ratio: 2/3) {
+    .effects_container {
+        height: 5vw;
+    }
+}
+
+.effect_icon {
+    height: 100%;
+}
+
+#tutorial_popup {
+    position: absolute;
+    width: 20vh;
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    box-shadow: 0 0 1vh #000000DD;
+    border-radius: 2vh;
+    font-size: 2vh;
+    font-weight: 600;
+    padding: 2vh;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#tutorial_buttons {
+    display: flex;
+    justify-content: space-between;
+    height: 6vh;
+    width: 18vh;
+}
+
+#tutorial_buttons div {
+    display: flex;
+    box-shadow: 0 0 .5vh #000000AA;
+    border-radius: 1vh;
+    width: 8vh;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.15s ease-in-out;
+}
+
+#skip_tutorial_button {
+    background: #361d57;
+    color: #FFF;
+}
+
+#tutorial_buttons div:hover {
+    box-shadow: 0vh 0vh .5vh #000000DD;
+    transition: 0.15s ease-in-out;
+}
+
+#game_end_screen {
+    display: none;
+    position: absolute;
+    background: #00000088;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+#game_end_box {
+    display: none;
+    position: absolute;
+    width: 20vh;
+    height: 10vh;
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    box-shadow: 0 0 1vh #000000DD;
+    border-radius: 2vh;
+    font-size: 2vh;
+    font-weight: 600;
+    padding: 2vh;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#play_again_button {
+    display: flex;
+    box-shadow: 0 0 .5vh #000000AA;
+    border-radius: 1vh;
+    width: 20vh;
+    height: 6vh;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.15s ease-in-out;
+    background: #361d57;
+    color: #FFF;
+}
+
+#play_again_button div:hover {
+    box-shadow: 0vh 0vh .5vh #000000DD;
+    transition: 0.15s ease-in-out;
 }
