@@ -112,6 +112,7 @@ function Confuse(context, target, amount = RandomInt(2, 5)){
     }
     target[DMG] -= amount;
     ShowMessage(`Dégats de ${target[NAME]} réduits de ${amount} par ${context[NAME]} !<br>${target[NAME]} inflige désormais ${target[DMG]} pts de dégat.`);
+    context[LAST_ACTION] = ACTION_CONFUSE;
 }
 
 // #region Effects

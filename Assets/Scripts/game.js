@@ -108,6 +108,12 @@ function Game(){
                 break;
         }
     };
+
+    playAgainButtonElement = document.getElementById("play_again_button");
+    playAgainButtonElement.onclick = () => {
+        console.log("Play again!");
+        location.reload();
+    };
     // #endregion
     
     // Player begins
@@ -201,4 +207,57 @@ function PerformAction(target){
             bool_hasAttacked = false;
         });
     }
+}
+
+// check ennemies health
+function CheckEnnemiesHealth(){
+    // Kill every ennemy at 0hp
+    lst_ennemies.forEach(ennemy => {
+        if(ennemy[HP] <= 0){
+            KillEnnemy(ennemy);
+        }
+    });
+    // Victory if no ennemy left
+    if(lst_ennemies.length == 0){
+        Win();
+    }
+}
+
+function CheckCharactersHealth(){
+    // Kill every character at 0hp
+    lst_characters.forEach(character => {
+        if(character[HP] <= 0){
+            KillCharacter(ennemy);
+        }
+    });
+    // Victory if no ennemy left
+    if(lst_ennemies.length == 0){
+        Win();
+    }
+}
+
+function Win(){
+    // deactivate game viewport interactions and lower opacity
+    gameViewportElement = document.getElementById("game_viewport");
+    gameViewportElement.style.opacity = 0.5;
+    gameViewportElement.style.pointerEvents = "none";
+
+    // then open the play again popup with the correct message
+    gameEndScreenElement = document.getElementById("game_end_screen");
+    gameEndTextElement = document.getElementById("game_end_text");
+    gameEndTextElement.innerHTML = "<b>Gagné ! (GG)</b>"
+    gameEndScreenElement.style.display = "flex";
+}
+
+function Loose(){
+    // deactivate game viewport interactions and lower opacity
+    gameViewportElement = document.getElementById("game_viewport");
+    gameViewportElement.style.opacity = 0.5;
+    gameViewportElement.style.pointerEvents = "none";
+
+    // then open the play again popup with the correct message
+    gameEndScreenElement = document.getElementById("game_end_screen");
+    gameEndTextElement = document.getElementById("game_end_text");
+    gameEndTextElement.innerHTML = "<b>Perdu... (GR)</b>"
+    gameEndScreenElement.style.display = "flex";
 }
