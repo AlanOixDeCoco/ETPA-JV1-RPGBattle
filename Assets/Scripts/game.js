@@ -144,6 +144,7 @@ function EnnemiesTurn(){
     // then for each living ennemy
     lst_ennemies.forEach(ennemy => {
         AttackRandomCharacter(ennemy);
+        CheckCharactersHealth();
     });
     ShowMessage("<b>C'est à vous !</b>", 2, PlayerTurn);
 }
@@ -191,6 +192,8 @@ function PerformAction(target){
     action_selectedAction = null; // reset selected action
     target_availableTargets = null; // reset available targets
 
+    CheckEnnemiesHealth();
+
     let selectedCharacterIndex = lst_characters.indexOf(character_selectedCharacter);
     if((selectedCharacterIndex + 1) >= lst_characters.length){
         // First deactivate the player commands && unselect last character
@@ -219,6 +222,7 @@ function CheckEnnemiesHealth(){
     });
     // Victory if no ennemy left
     if(lst_ennemies.length == 0){
+        lst_MessagesQueue = null;
         Win();
     }
 }
@@ -227,12 +231,13 @@ function CheckCharactersHealth(){
     // Kill every character at 0hp
     lst_characters.forEach(character => {
         if(character[HP] <= 0){
-            KillCharacter(ennemy);
+            KillCharacter(character);
         }
     });
-    // Victory if no ennemy left
-    if(lst_ennemies.length == 0){
-        Win();
+    // Defeat if no character left
+    if(lst_characters.length == 0){
+        lst_MessagesQueue = null;
+        Loose();
     }
 }
 
