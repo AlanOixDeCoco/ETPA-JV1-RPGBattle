@@ -1,6 +1,6 @@
 # ETPA-JV1-RPGBattle
 
-This project is the first one of my second degree programmation class, it is about scripting/coding in:
+This project is the first one of my second degree (at the ETPA) programmation class, it is about scripting/coding in:
 - HTML/CSS for the visual part
 - JS for the game logic
 
